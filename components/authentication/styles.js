@@ -31,7 +31,7 @@ export const AuthButton = styled.TouchableOpacity`
   align-self: stretch;
   align-items: center;
   padding: 20px;
-  background-color: pink;
+  background-color: lightblue;
   margin-top: 30px;
 `;
 

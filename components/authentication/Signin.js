@@ -22,7 +22,7 @@ const Signin = ({ navigation }) => {
 
   const handleSubmit = () => {
     authStore.signin(user);
-    if (authStore.user) navigation.replace("Home");
+    if (authStore.user) navigation.replace("TripList");
   };
 
   return (
