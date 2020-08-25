@@ -3,12 +3,16 @@ import { Text } from "react-native";
 import logo from "../../logo.jpeg";
 
 // Styling
-import { HomeBackground } from "./styles";
+import { HomeBackground, ButtomStyling, SignInStyle } from "./styles";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <HomeBackground source={logo}>
-      <Text>Sign in</Text>
+      <ButtomStyling>
+        <SignInStyle onPress={() => navigation.navigate("Signin")}>
+          Sign in
+        </SignInStyle>
+      </ButtomStyling>
     </HomeBackground>
   );
 };
