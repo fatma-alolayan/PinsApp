@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { Icon, Button } from "native-base";
 
 export const TextStyle = styled.Text`
   color: navy;
@@ -18,4 +19,7 @@ export const TripStyled = styled.Text`
   font-size: 14px;
   margin-top: 10px;
   margin-bottom: -30px;
+`;
+export const TrashIcon = styled(Icon)`
+  color: red;
 `;
