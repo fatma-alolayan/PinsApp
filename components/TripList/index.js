@@ -17,6 +17,7 @@ const TripList = ({ navigation }) => {
         <List>{tripList}</List>
       </Container>
     </ScrollView>
+
   );
 };
 

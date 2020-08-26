@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Thumbnail, Card, CardItem } from "native-base";
 // Styling
@@ -35,3 +36,4 @@ const TripItem = ({ trip, navigation }) => {
 };
 
 export default observer(TripItem);
+

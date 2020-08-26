@@ -8,14 +8,17 @@ class TripStore {
   fetchTrips = async () => {
     try {
       const res = await instance.get("/trips");
+
       // console.log("\\\\\\\\\\\\", res);
       this.trips = res.data;
       this.loading = false;
       // console.log("\\\\\\\\\\\\this.loading", this.loading);
+
     } catch (error) {
       console.error("TripStore -> fetchTrips -> error", error);
     }
   };
+
 
   createTrip = async (newTrip) => {
     try {
@@ -42,6 +45,7 @@ class TripStore {
       console.error("ShopStore -> deleteShop -> error", error);
     }
   };
+
 }
 
 decorate(TripStore, {
@@ -50,6 +54,7 @@ decorate(TripStore, {
 });
 
 const tripStore = new TripStore();
+
 tripStore.fetchTrips();
 
 export default tripStore;

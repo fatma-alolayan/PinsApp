@@ -8,11 +8,16 @@ import Home from "../Home";
 import Signin from "../authentication/Signin";
 import Signup from "../authentication/Signup";
 import TripList from "../TripList";
+
+import TripItem from "../TripList/TripItem";
+
+
 import Profile from "../Profile";
 import Search from "../Search";
 import TabContent from "../TabContent";
 import Intro from "./Intro";
 import authStore from "../../stores/authStore";
+
 const { Navigator, Screen } = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
@@ -41,8 +46,11 @@ const HomeStack = createStackNavigator();
 
 const RootNavigator = () => {
   return (
+
+    
     <Tab.Navigator
       initialRouteName="Home"
+
       screenOptions={{
         headerTintColor: "lightblue",
         headerStyle: {
@@ -53,10 +61,29 @@ const RootNavigator = () => {
         },
       }}
     >
+
+//      
+
+//       <Screen
+//         name="Signin"
+//         component={Signin}
+//         options={{ headerShown: false }}
+//       />
+//       <Screen
+//         name="Signup"
+//         component={Signup}
+//         options={{ headerShown: false }}
+//       />
+
+//       <Screen name="TripList" component={TripList} />
+//       <Screen name="TripItem" component={TripItem} />
+   
+
       <Tab.Screen name="Home" component={TripList} />
       <Tab.Screen name="Search" component={Search} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
+
   );
 };
 
