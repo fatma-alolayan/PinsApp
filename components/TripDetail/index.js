@@ -21,6 +21,7 @@ const TripDetail = ({ tripId, navigation }) => {
   if (!trip) return navigation.replace("Home");
 
   return (
+    // REVIEW: You don't need a fragment if you already have a component wrapping all components
     <>
       <FWrapper>
         <Description>{trip.title}</Description>

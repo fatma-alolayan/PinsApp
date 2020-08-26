@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Thumbnail, Card, CardItem } from "native-base";
 // Styling
@@ -11,6 +10,7 @@ const TripItem = ({ trip, navigation }) => {
   console.log("mmmmmm", authStore.users);
 
   return (
+    // REVIEW: You don't need a fragment if you already have a component wrapping all components
     <>
       <Card>
         <CardItem>
@@ -36,4 +36,3 @@ const TripItem = ({ trip, navigation }) => {
 };
 
 export default observer(TripItem);
-

@@ -21,6 +21,7 @@ const AddTrip = ({ navigation }) => {
     image: "",
     details: "",
   });
+  // REVIEW: Remove console logs if you're done with the testing
 
   const handleSubmit = async () => {
     await tripStore.createTrip(trip);

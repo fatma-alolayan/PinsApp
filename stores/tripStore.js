@@ -5,6 +5,8 @@ class TripStore {
   trips = [];
   loading = true;
 
+  // REVIEW: Remove console logs if you're done with the testing
+
   fetchTrips = async () => {
     try {
       const res = await instance.get("/trips");
@@ -13,12 +15,10 @@ class TripStore {
       this.trips = res.data;
       this.loading = false;
       // console.log("\\\\\\\\\\\\this.loading", this.loading);
-
     } catch (error) {
       console.error("TripStore -> fetchTrips -> error", error);
     }
   };
-
 
   createTrip = async (newTrip) => {
     try {
@@ -45,7 +45,6 @@ class TripStore {
       console.error("ShopStore -> deleteShop -> error", error);
     }
   };
-
 }
 
 decorate(TripStore, {

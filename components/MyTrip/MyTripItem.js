@@ -13,6 +13,7 @@ import TripDetail from "../TripDetail";
 const MyTripItem = ({ trip, navigation }) => {
   let tripId = trip.id;
   return (
+    // REVIEW: You don't need a fragment if you already have a component wrapping all components
     <>
       <Card>
         <CardItem>
