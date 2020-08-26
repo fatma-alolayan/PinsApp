@@ -1,14 +1,23 @@
 import React from "react";
-import { View } from "react-native";
-// Styling
-import { TextStyle } from "./styles";
+import { observer } from "mobx-react";
+import { ScrollView } from "react-native";
+import { List, Spinner, Container, Card } from "native-base";
+import tripStore from "../../stores/tripStore";
+import TripItem from "./TripItem";
 
 const TripList = ({ navigation }) => {
+  if (tripStore.loading) return <Spinner color="lightblue" />;
+
+  const tripList = tripStore.trips.map((trip) => (
+    <TripItem trip={trip} key={trip.id} navigation={navigation} />
+  ));
   return (
-    <View>
-      <TextStyle>TripList</TextStyle>
-    </View>
+    <ScrollView>
+      <Container>
+        <List>{tripList}</List>
+      </Container>
+    </ScrollView>
   );
 };
 
-export default TripList;
+export default observer(TripList);
