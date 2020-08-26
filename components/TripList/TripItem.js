@@ -1,37 +1,39 @@
-import React, { useState } from "react";
 
-import {
-  ListItem,
-  Thumbnail,
-  Left,
-  Right,
-  Button,
-  Body,
-  Text,
-} from "native-base";
-import { TripStyled } from "./styles";
+import React from "react";
+import { Thumbnail, Card, CardItem } from "native-base";
+// Styling
+import { Text, TripItemStyled } from "./styles";
+import Trip from "../../media/Trip.png";
+import authStore from "../../stores/authStore";
+import { observer } from "mobx-react";
+const TripItem = ({ trip, navigation }) => {
+  // const username = authStore.users.find((user) => user.id === trip.userId);
+  console.log("mmmmmm", authStore.users);
 
-//stores
-// import cartStore from "../../stores/cartStore";
-
-const TripItem = ({ trip }) => {
-  const [quantity, setQuantity] = useState(1);
-
-  const handleAdd = () => {
-    const newTrip = { quantity: quantity, tripId: trip.id };
-    // cartStore.addItem(newTrip);
-  };
   return (
-    <ListItem>
-      <Thumbnail source={trip.image} />
-
-      <Left>
-        <Body>
-          <TripStyled>{trip.title}</TripStyled>
-        </Body>
-      </Left>
-    </ListItem>
+    <>
+      <Card>
+        <CardItem>
+          {trip.imag ? (
+            <Thumbnail source={{ uri: trip.imag }} />
+          ) : (
+            <Thumbnail source={Trip} />
+          )}
+          <TripItemStyled
+            onPress={() => navigation.navigate("Detail", { trip: trip })}
+          >
+            {trip.title}
+          </TripItemStyled>
+          <TripItemStyled
+            onPress={() => navigation.navigate("Detail", { trip: trip })}
+          >
+            username
+          </TripItemStyled>
+        </CardItem>
+      </Card>
+    </>
   );
 };
 
-export default TripItem;
+export default observer(TripItem);
+

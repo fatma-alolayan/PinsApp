@@ -5,11 +5,24 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 class AuthStore {
   user = null;
-
+  users = null;
+  loading = true;
   setUser = async (token) => {
     await AsyncStorage.setItem("myToken", token);
     instance.defaults.headers.common.Authorization = `Bearer ${token}`;
     this.user = decode(token);
+  };
+
+  fetchUsers = async () => {
+    try {
+      const res = await instance.get("/");
+      // console.log("\\\\\\\\\\\\", res);
+      this.sers = res.data;
+      this.loading = false;
+      // console.log("\\\\\\\\\\\\this.loading", this.loading);
+    } catch (error) {
+      console.error("Userstore -> fetchUsers -> error", error);
+    }
   };
 
   signup = async (userData) => {
@@ -24,7 +37,8 @@ class AuthStore {
   signin = async (userData) => {
     try {
       const res = await instance.post("/signin", userData);
-      this.setUser(res.data.token);
+      await this.setUser(res.data.token);
+
       console.log("AuthStore -> signin -> res.data.token", res.data.token);
     } catch (error) {
       console.log("AuthStore -> signin -> error", error);
@@ -32,6 +46,7 @@ class AuthStore {
   };
 
   signout = () => {
+    console.log("//////////////");
     delete instance.defaults.headers.common.Authorization;
     this.user = null;
     AsyncStorage.removeItem("myToken");
@@ -49,9 +64,13 @@ class AuthStore {
     }
   };
 }
-decorate(AuthStore, { user: observable });
 
+decorate(AuthStore, {
+  user: observable,
+  users: observable,
+});
 const authStore = new AuthStore();
 authStore.checkForToken();
+authStore.fetchUsers();
 
 export default authStore;
