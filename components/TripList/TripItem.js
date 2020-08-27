@@ -1,4 +1,3 @@
-
 import React from "react";
 
 // Styling
@@ -28,6 +27,7 @@ const TripItem = ({ trip, navigation }) => {
         <CardItem>
           <Left>
             <Body>
+              {/* REVIEW: You can clean this up to be <Thumbnail source={trip.image ? { uri: trip.image } : Trip} />  */}
               {trip.image ? (
                 <Thumbnail source={{ uri: trip.image }} />
               ) : (
@@ -69,4 +69,3 @@ const TripItem = ({ trip, navigation }) => {
 };
 
 export default observer(TripItem);
-

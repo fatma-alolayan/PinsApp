@@ -10,8 +10,10 @@ import tripStore from "../../stores/tripStore";
 import TripDetail from "../TripDetail";
 
 const MyTripItem = ({ user, trip, navigation }) => {
+  // REVIEW: You're not using tripId, so remove it
   let tripId = trip.id;
   return (
+    // REVIEW: Remove fragments <> </>
     <>
       <Card>
         <CardItem>

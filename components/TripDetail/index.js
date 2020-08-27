@@ -24,6 +24,7 @@ import {
 import authStore from "../../stores/authStore";
 
 const TripDetail = ({ route, navigation }) => {
+  // REVIEW: This can be cleaned up to be `const { trip, user } = route.params;`
   const { trip } = route.params;
   const { user } = route.params;
 
@@ -32,6 +33,7 @@ const TripDetail = ({ route, navigation }) => {
 
   return (
     <Container>
+      {/* REVIEW: You don't need a Header, use the header from React Navigation */}
       <Header style={{ flex: 0 }}>
         <Thumbnail source={{ uri: user.image }} />
         <Text>{user.username}</Text>

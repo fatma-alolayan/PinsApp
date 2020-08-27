@@ -16,7 +16,7 @@ class AuthStore {
   fetchUsers = async () => {
     try {
       const res = await instance.get("/");
-
+      // REVIEW: you have a typo below
       this.sers = res.data;
       this.loading = false;
     } catch (error) {

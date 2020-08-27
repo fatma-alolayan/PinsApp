@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 
+// REVIEW: Since you have styles for the AddTrip component, change the name `Auth` to `Add`.
 export const AuthContainer = styled.View`
   flex: 1;
   align-self: stretch;

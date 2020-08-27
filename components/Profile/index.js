@@ -26,6 +26,7 @@ const Profile = ({ navigation }) => {
     <MyTripItem trip={trip} key={trip.id} user={user} navigation={navigation} />
   ));
   return (
+    // REVIEW: Remove the fragments <> </>
     <>
       <Container>
         <Header style={{ flex: 0 }}>
