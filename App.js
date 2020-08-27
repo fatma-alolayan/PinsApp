@@ -14,6 +14,9 @@ import Search from "./components/Search";
 import authStore from "./stores/authStore";
 import AddTrip from "./components/AddTrip";
 import TripDetail from "./components/TripDetail";
+import Test from "./components/Test";
+
+import UpdateTrip from "./components/UpdateTrip";
 const Tab = createBottomTabNavigator();
 
 function HomeTabs() {
@@ -32,6 +35,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Tab.Screen name="Test" component={Test} />
         <Tab.Screen name="Intro" component={Home} />
         <Stack.Screen name="Home" component={HomeTabs} />
         {/* <Stack.Screen name="TripList" component={TripList} /> */}
@@ -39,6 +43,7 @@ const App = () => {
         <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="AddTrip" component={AddTrip} />
+        <Stack.Screen name="UpdateTrip" component={UpdateTrip} />
         <Stack.Screen name="TripDetail" component={TripDetail} />
       </Stack.Navigator>
     </NavigationContainer>

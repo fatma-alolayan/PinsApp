@@ -6,23 +6,22 @@ import { Button } from "react-native-paper";
 import { observer } from "mobx-react";
 import { TrashIcon } from "./styles";
 import Trip from "../../media/Trip.png";
-
 import tripStore from "../../stores/tripStore";
 import TripDetail from "../TripDetail";
 
-const MyTripItem = ({ trip, navigation }) => {
+const MyTripItem = ({ user, trip, navigation }) => {
   let tripId = trip.id;
   return (
     <>
       <Card>
         <CardItem>
-          {trip.imag ? (
-            <Thumbnail source={{ uri: trip.imag }} />
+          {trip.image ? (
+            <Thumbnail source={{ uri: trip.image }} />
           ) : (
             <Thumbnail source={Trip} />
           )}
           <TripItemStyled
-            onPress={() => navigation.navigate("TripDetail", { tripId })}
+            onPress={() => navigation.navigate("TripDetail", { trip, user })}
           >
             {trip.title}
           </TripItemStyled>
