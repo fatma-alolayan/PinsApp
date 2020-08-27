@@ -1,36 +1,69 @@
 import React from "react";
-import { Thumbnail, Card, CardItem } from "native-base";
+
 // Styling
-import { Text, TripItemStyled } from "./styles";
+import { TripItemStyled } from "./styles";
 import Trip from "../../media/Trip.png";
 import authStore from "../../stores/authStore";
 import { observer } from "mobx-react";
+import {
+  Card,
+  CardItem,
+  Thumbnail,
+  Left,
+  Body,
+  Icon,
+  Button,
+  Text,
+} from "native-base";
+import { Image, ScrollView } from "react-native";
+
 const TripItem = ({ trip, navigation }) => {
-  // const username = authStore.users.find((user) => user.id === trip.userId);
-  console.log("mmmmmm", authStore.users);
+  let tripId = trip.id;
+  // const user = authStore.users.find((user) => user.id === trip.userId);
 
   return (
-    <>
-      <Card>
+    <ScrollView>
+      <Card style={{ flex: 0 }}>
         <CardItem>
-          {trip.imag ? (
-            <Thumbnail source={{ uri: trip.imag }} />
-          ) : (
-            <Thumbnail source={Trip} />
-          )}
-          <TripItemStyled
-            onPress={() => navigation.navigate("Detail", { trip: trip })}
-          >
-            {trip.title}
-          </TripItemStyled>
-          <TripItemStyled
-            onPress={() => navigation.navigate("Detail", { trip: trip })}
-          >
-            username
-          </TripItemStyled>
+          <Left>
+            <Body>
+              {trip.image ? (
+                <Thumbnail source={{ uri: trip.image }} />
+              ) : (
+                <Thumbnail source={Trip} />
+              )}
+              <TripItemStyled>{trip.title}</TripItemStyled>
+            </Body>
+          </Left>
+        </CardItem>
+        <CardItem>
+          <Body onPress={() => navigation.navigate("TripDetail", { tripId })}>
+            <Image
+              source={{ uri: trip.image }}
+              style={{
+                height: 200,
+                width: 350,
+                flex: 1,
+              }}
+            />
+
+            <TripItemStyled
+            // onPress={() => navigation.navigate("Detail", { trip: trip })}
+            >
+              {trip.title}
+            </TripItemStyled>
+          </Body>
+        </CardItem>
+        <CardItem>
+          <Left>
+            <Button transparent textStyle={{ color: "#87838B" }}>
+              <Icon name="logo-github" />
+              <Text>likes</Text>
+            </Button>
+          </Left>
         </CardItem>
       </Card>
-    </>
+    </ScrollView>
   );
 };
 

@@ -16,10 +16,9 @@ class AuthStore {
   fetchUsers = async () => {
     try {
       const res = await instance.get("/");
-      // console.log("\\\\\\\\\\\\", res);
+
       this.sers = res.data;
       this.loading = false;
-      // console.log("\\\\\\\\\\\\this.loading", this.loading);
     } catch (error) {
       console.error("Userstore -> fetchUsers -> error", error);
     }
@@ -46,7 +45,6 @@ class AuthStore {
   };
 
   signout = () => {
-    console.log("//////////////");
     delete instance.defaults.headers.common.Authorization;
     this.user = null;
     AsyncStorage.removeItem("myToken");

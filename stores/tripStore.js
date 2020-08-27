@@ -8,10 +8,9 @@ class TripStore {
   fetchTrips = async () => {
     try {
       const res = await instance.get("/trips");
-      // console.log("\\\\\\\\\\\\", res);
+
       this.trips = res.data;
       this.loading = false;
-      // console.log("\\\\\\\\\\\\this.loading", this.loading);
     } catch (error) {
       console.error("TripStore -> fetchTrips -> error", error);
     }
@@ -20,14 +19,8 @@ class TripStore {
   createTrip = async (newTrip) => {
     try {
       const formData = new FormData();
-      console.log("0000000newTrip", newTrip);
-
       for (const key in newTrip) formData.append(key, newTrip[key]);
-
       const res = await instance.post("/trips", newTrip);
-      console.log("0000000res", res);
-      // authStore.user.tripSlug = res.data.slug;
-
       this.trips.push(res.data);
     } catch (error) {
       console.error("TripStore -> createTrip -> error", error);
@@ -42,8 +35,20 @@ class TripStore {
       console.error("ShopStore -> deleteShop -> error", error);
     }
   };
-}
 
+  updateTrip = async (updatedTrip) => {
+    try {
+      const formData = new FormData();
+      for (const key in updatedTrip) formData.append(key, updatedTrip[key]);
+      await instance.put(`/trips/${updatedTrip.id}`, formData);
+      const trip = this.trips.find((trip) => trip.id === updatedTrip.id);
+      for (const key in updatedTrip) trip[key] = updatedTrip[key];
+      // trip.image = URL.createObjectURL(updatedTrip.image);
+    } catch (error) {
+      console.error("TripStore -> updatedTrip -> error", error);
+    }
+  };
+}
 decorate(TripStore, {
   trips: observable,
   loading: observable,

@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 
 //store
 import tripStore from "../../stores/tripStore";
+import authStore from "../../stores/authStore";
 
 //styles
 import {
@@ -12,46 +13,46 @@ import {
   AuthButton,
   AuthButtonText,
   AuthOther,
-} from "./styles";
-import authStore from "../../stores/authStore";
+} from "../AddTrip/styles";
 
-const AddTrip = ({ navigation }) => {
+const UpdateTrip = ({ navigation, route }) => {
+  const { trip } = route.params;
+
   const rest = { title: "", image: "", details: "" };
-  const [trip, setTrip] = useState(rest);
+  const [_trip, setTrip] = useState(trip ?? rest);
 
   const handleSubmit = async () => {
-    await tripStore.createTrip(trip);
-
+    await tripStore.updateTrip(_trip);
     setTrip(rest);
-    if (authStore.user) navigation.replace("TripList");
+
+    if (authStore.user) navigation.goBack();
   };
 
   return (
     <AuthContainer>
-      <AuthTitle>Add Trip</AuthTitle>
+      <AuthTitle>Update Trip</AuthTitle>
 
       <AuthTextInput
-        onChangeText={(title) => setTrip({ ...trip, title })}
+        onChangeText={(title) => setTrip({ ..._trip, title })}
         placeholder="title"
         placeholderTextColor="#A6AEC1"
-        value={trip.title}
+        value={_trip.title}
       />
       <AuthTextInput
-        onChangeText={(image) => setTrip({ ...trip, image })}
+        onChangeText={(image) => setTrip({ ..._trip, image })}
         placeholder="image"
         placeholderTextColor="#A6AEC1"
-        // value={_trip.image}
+        value={_trip.image}
       />
-
       <AuthTextInput
-        onChangeText={(details) => setTrip({ ...trip, details })}
+        onChangeText={(details) => setTrip({ ..._trip, details })}
         placeholder="details"
         placeholderTextColor="#A6AEC1"
-        value={trip.details}
+        value={_trip.details}
       />
 
       <AuthButton onPress={handleSubmit}>
-        <AuthButtonText>Add</AuthButtonText>
+        <AuthButtonText>Update</AuthButtonText>
       </AuthButton>
       <AuthOther onPress={() => navigation.navigate("Profile")}>
         Cancel
@@ -60,4 +61,4 @@ const AddTrip = ({ navigation }) => {
   );
 };
 
-export default observer(AddTrip);
+export default observer(UpdateTrip);
