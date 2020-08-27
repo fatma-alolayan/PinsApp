@@ -1,8 +1,11 @@
+
 import React from "react";
 
 // Styling
 import { TripItemStyled } from "./styles";
+
 import pic from "../../media/user.png";
+
 import authStore from "../../stores/authStore";
 import { observer } from "mobx-react";
 import {
@@ -18,6 +21,7 @@ import {
 import { Image, ScrollView } from "react-native";
 
 const TripItem = ({ trip, navigation }) => {
+
   const user = authStore.users.find((user) => user.id === trip.userId);
 
   return (
@@ -26,6 +30,7 @@ const TripItem = ({ trip, navigation }) => {
         <CardItem>
           <Left>
             <Body>
+
               {user.image ? (
                 <Thumbnail source={{ uri: user.image }} />
               ) : (
@@ -36,12 +41,15 @@ const TripItem = ({ trip, navigation }) => {
               >
                 {user.username}
               </TripItemStyled>
+
               <TripItemStyled>{trip.title}</TripItemStyled>
             </Body>
           </Left>
         </CardItem>
         <CardItem>
+
           <Body>
+
             <Image
               source={{ uri: trip.image }}
               style={{
@@ -52,7 +60,9 @@ const TripItem = ({ trip, navigation }) => {
             />
 
             <TripItemStyled
+
               onPress={() => navigation.navigate("TripDetail", { trip, user })}
+
             >
               {trip.title}
             </TripItemStyled>
@@ -72,3 +82,4 @@ const TripItem = ({ trip, navigation }) => {
 };
 
 export default observer(TripItem);
+

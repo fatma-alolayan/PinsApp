@@ -1,4 +1,6 @@
+
 import React, { useState } from "react";
+
 import { View, Text } from "react-native";
 import {
   Spinner,
@@ -16,6 +18,7 @@ import { observer } from "mobx-react";
 import MyTripItem from "../MyTrip/MyTripItem";
 import tripStore from "../../stores/tripStore";
 import AddButton from "../buttons/AddButton";
+
 
 const Profile = ({ navigation, route }) => {
   if (tripStore.loading) return <Spinner color="lightblue" />;
@@ -41,6 +44,7 @@ const Profile = ({ navigation, route }) => {
   ));
   return (
     <>
+
       {!authStore.user ? navigation.replace("Intro") : null}
       <Container>
         <Header style={{ flex: 0 }}>

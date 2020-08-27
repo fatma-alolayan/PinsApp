@@ -4,10 +4,12 @@ import { ScrollView, Dimensions } from "react-native";
 import { List, Spinner, Container, Card } from "native-base";
 import tripStore from "../../stores/tripStore";
 import TripItem from "./TripItem";
+
 import authStore from "../../stores/authStore";
 
 const { height } = Dimensions.get("window");
 const TripList = ({ navigation }) => {
+
   onContentSizeChange = (contentWidth, contentHeight) => {
     this.setState({ screenHeight: contentHeight });
   };
@@ -23,6 +25,7 @@ const TripList = ({ navigation }) => {
         <List>{tripList}</List>
       </Container>
     </ScrollView>
+
   );
 };
 

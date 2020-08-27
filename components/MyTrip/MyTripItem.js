@@ -10,6 +10,7 @@ import tripStore from "../../stores/tripStore";
 import TripDetail from "../TripDetail";
 
 const MyTripItem = ({ user, trip, navigation }) => {
+
   return (
     <>
       <Card>

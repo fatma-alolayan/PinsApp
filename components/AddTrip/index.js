@@ -23,7 +23,9 @@ const AddTrip = ({ navigation }) => {
     await tripStore.createTrip(trip);
 
     setTrip(rest);
+
     if (authStore.user) navigation.goBack();
+
   };
 
   return (
