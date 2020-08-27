@@ -1,3 +1,4 @@
+
 import React from "react";
 
 // Styling
@@ -68,3 +69,4 @@ const TripItem = ({ trip, navigation }) => {
 };
 
 export default observer(TripItem);
+
