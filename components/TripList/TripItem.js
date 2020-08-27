@@ -3,7 +3,9 @@ import React from "react";
 
 // Styling
 import { TripItemStyled } from "./styles";
-import Trip from "../../media/Trip.png";
+
+import pic from "../../media/user.png";
+
 import authStore from "../../stores/authStore";
 import { observer } from "mobx-react";
 import {
@@ -19,8 +21,8 @@ import {
 import { Image, ScrollView } from "react-native";
 
 const TripItem = ({ trip, navigation }) => {
-  let tripId = trip.id;
-  // const user = authStore.users.find((user) => user.id === trip.userId);
+
+  const user = authStore.users.find((user) => user.id === trip.userId);
 
   return (
     <ScrollView>
@@ -28,17 +30,26 @@ const TripItem = ({ trip, navigation }) => {
         <CardItem>
           <Left>
             <Body>
-              {trip.image ? (
-                <Thumbnail source={{ uri: trip.image }} />
+
+              {user.image ? (
+                <Thumbnail source={{ uri: user.image }} />
               ) : (
-                <Thumbnail source={Trip} />
+                <Thumbnail source={pic} />
               )}
+              <TripItemStyled
+                onPress={() => navigation.navigate("Profile", { _user: user })}
+              >
+                {user.username}
+              </TripItemStyled>
+
               <TripItemStyled>{trip.title}</TripItemStyled>
             </Body>
           </Left>
         </CardItem>
         <CardItem>
-          <Body onPress={() => navigation.navigate("TripDetail", { tripId })}>
+
+          <Body>
+
             <Image
               source={{ uri: trip.image }}
               style={{
@@ -49,7 +60,9 @@ const TripItem = ({ trip, navigation }) => {
             />
 
             <TripItemStyled
-            // onPress={() => navigation.navigate("Detail", { trip: trip })}
+
+              onPress={() => navigation.navigate("TripDetail", { trip, user })}
+
             >
               {trip.title}
             </TripItemStyled>

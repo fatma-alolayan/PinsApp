@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { useState } from "react";
+
 import { View, Text } from "react-native";
 import {
   Spinner,
@@ -17,9 +19,24 @@ import MyTripItem from "../MyTrip/MyTripItem";
 import tripStore from "../../stores/tripStore";
 import AddButton from "../buttons/AddButton";
 
-const Profile = ({ navigation }) => {
+
+const Profile = ({ navigation, route }) => {
   if (tripStore.loading) return <Spinner color="lightblue" />;
-  const user = authStore.user;
+  const [authorized, setAuthorized] = useState(false);
+  let user = authStore.user;
+  // const { _user } = route.params;
+  console.log(".._user..", user);
+  // if (_user) user = _user;
+
+  // console.log("..authStore.user...", authStore.user);
+  console.log(user.id === authStore.user.id);
+
+  // if (user.id === authStore.user.id) {
+  //   setAuthorized(true);
+  // }
+  //else {
+  //   setAuthorized(false);
+  // }
 
   const foundmyTrip = tripStore.trips.filter((trip) => trip.userId === user.id);
   const myTrip = foundmyTrip.map((trip) => (
@@ -27,11 +44,16 @@ const Profile = ({ navigation }) => {
   ));
   return (
     <>
+
+      {!authStore.user ? navigation.replace("Intro") : null}
       <Container>
         <Header style={{ flex: 0 }}>
-          {!authStore.user ? navigation.replace("Intro") : null}
-          <Thumbnail source={{ uri: user.image }} />
+          <Thumbnail
+            onPress={() => navigation.navigate("EditProfile", user)}
+            source={{ uri: user.image }}
+          />
           <Title
+            onPress={() => navigation.navigate("EditProfile", { user: user })}
             style={{
               fontSize: 16,
               marginTop: 3,
