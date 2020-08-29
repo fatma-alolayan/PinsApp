@@ -9,6 +9,7 @@ class TripStore {
     try {
       const res = await instance.get("/trips");
 
+
       this.trips = res.data;
 
       this.trips = this.trips.sort((a, b) =>
@@ -16,10 +17,12 @@ class TripStore {
       );
 
       this.loading = false;
+
     } catch (error) {
       console.error("TripStore -> fetchTrips -> error", error);
     }
   };
+
 
   createTrip = async (newTrip) => {
     try {
@@ -37,9 +40,11 @@ class TripStore {
       await instance.delete(`/trips/${tripId}`);
       this.trips = this.trips.filter((trip) => trip.id !== +tripId);
     } catch (error) {
+
       console.error("TripStore -> deleteTrip -> error", error);
     }
   };
+
 
   updateTrip = async (updatedTrip) => {
     try {
@@ -60,6 +65,7 @@ decorate(TripStore, {
 });
 
 const tripStore = new TripStore();
+
 tripStore.fetchTrips();
 
 export default tripStore;

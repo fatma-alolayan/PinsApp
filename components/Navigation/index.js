@@ -1,8 +1,10 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 
 import Icon from "react-native-vector-icons/Ionicons";
 import DrawerContent from "../../components/DawerContenent";
@@ -14,6 +16,7 @@ import Start from "../authentication/Start";
 import Signin from "../authentication/Signin";
 import Signup from "../authentication/Signup";
 import TripList from "../TripList";
+
 import Profile from "../Profile";
 import UserProfile from "../Profile/UserProfile";
 import Search from "../Search";
@@ -328,6 +331,9 @@ const RootNavigator = () => {
         <Intro />
       )}
     </>
+
+   
+
   );
 };
 export default observer(RootNavigator);

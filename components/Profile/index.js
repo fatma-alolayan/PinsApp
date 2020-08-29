@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   View,
@@ -7,6 +8,7 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+
 
 import {
   Spinner,
@@ -30,7 +32,9 @@ import { TextStyle, SmallText } from "./styles";
 import pic from "../../media/user.png";
 const numColumns = 2;
 
+
 const Profile = ({ navigation }) => {
+
   if (tripStore.loading) return <Spinner color="lightblue" />;
   const user = authStore.user;
   const foundmyTrip = tripStore.trips.filter((trip) => trip.userId === user.id);
@@ -86,6 +90,7 @@ const Profile = ({ navigation }) => {
   };
   return (
     <>
+
       {!authStore.user ? navigation.replace("Intro") : null}
       <Container>
         <Card>
