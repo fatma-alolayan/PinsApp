@@ -1274,10 +1274,6 @@
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
-"@react-navigation/compat@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@react-navigation/compat/-/compat-5.2.5.tgz#b8e110f46418834dece9319374e0161cf5a976eb"
-  integrity sha512-5LpRr6YmuXVf3XbS/qKV83KzHe0/atcIRGC1d86TJMnF6mcwfCmBhhpLETIF1S2Nrf29bwwiHl7IZdx+GZGZcg==
 
 "@react-navigation/core@^5.12.3":
   version "5.12.3"
@@ -1290,6 +1286,16 @@
     query-string "^6.13.1"
     react-is "^16.13.0"
     use-subscription "^1.4.0"
+
+
+"@react-navigation/drawer@^5.9.0":
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-5.9.0.tgz#e8813df2f1aa5694521c1a46c88d0b42c50fbe6c"
+  integrity sha512-YcuJ9QD4cFyjfXJx6vMsG3u3bfOU/Nt+GvMMl+4rZOxw2LStmubY1jqfsEAli/+dTUHv5kXJf5dF+/GhUCqA5g==
+  dependencies:
+    color "^3.1.2"
+    react-native-iphone-x-helper "^1.2.1"
+
 
 "@react-navigation/material-bottom-tabs@^5.2.16":
   version "5.2.16"

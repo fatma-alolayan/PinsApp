@@ -13,9 +13,15 @@ import {
   AuthButtonText,
   AuthOther,
 } from "./styles";
+import { Thumbnail } from "native-base";
+import pic from "../../media/user.png";
+import { SmallText, LabelTitle } from "./styles";
+import { View } from "react-native-animatable";
 
-const EditProfile = ({ navigation, route }) => {
-  const { user } = route.params;
+const EditProfile = ({ navigation }) => {
+  const [changeImage, setchangeImage] = useState(false);
+
+  const user = authStore.user;
 
   const [_user, setUser] = useState(user);
 
@@ -27,39 +33,67 @@ const EditProfile = ({ navigation, route }) => {
 
   return (
     <AuthContainer>
-      <AuthTitle>Update user</AuthTitle>
+      <AuthTitle>Edit User</AuthTitle>
 
-      <AuthTextInput
-        onChangeText={(username) => setUser({ ..._user, username })}
-        placeholder="username"
-        placeholderTextColor="#A6AEC1"
-        value={_user.username}
-      />
-      <AuthTextInput
-        onChangeText={(firstName) => setUser({ ..._user, firstName })}
-        placeholder="firstName"
-        placeholderTextColor="#A6AEC1"
-        value={_user.firstName}
-      />
-      <AuthTextInput
-        onChangeText={(lastName) => setUser({ ..._user, lastName })}
-        placeholder="lastName"
-        placeholderTextColor="#A6AEC1"
-        value={_user.lastName}
-      />
-      <AuthTextInput
-        onChangeText={(email) => setUser({ ..._user, email })}
-        placeholder="email"
-        placeholderTextColor="#A6AEC1"
-        value={_user.email}
-      />
+      {user.image ? (
+        <Thumbnail large source={{ uri: user.image }} />
+      ) : (
+        <Thumbnail source={pic} />
+      )}
+      <SmallText
+        onPress={() => setchangeImage(!changeImage)}
+        style={{ paddingBottom: 20 }}
+      >
+        Change image
+      </SmallText>
+      {changeImage ? (
+        <View style={{ flexDirection: "row" }}>
+          <LabelTitle>Image</LabelTitle>
 
-      <AuthTextInput
-        onChangeText={(image) => setUser({ ..._user, image })}
-        placeholder="image"
-        placeholderTextColor="#A6AEC1"
-        value={_user.image}
-      />
+          <AuthTextInput
+            onChangeText={(image) => setUser({ ..._user, image })}
+            placeholder="image"
+            placeholderTextColor="#A6AEC1"
+            value={_user.image}
+          />
+        </View>
+      ) : null}
+      <View style={{ flexDirection: "row" }}>
+        <LabelTitle>Username</LabelTitle>
+        <AuthTextInput
+          onChangeText={(username) => setUser({ ..._user, username })}
+          placeholder="username"
+          placeholderTextColor="#A6AEC1"
+          value={_user.username}
+        />
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        <LabelTitle>First Name</LabelTitle>
+        <AuthTextInput
+          onChangeText={(firstName) => setUser({ ..._user, firstName })}
+          placeholder="firstName"
+          placeholderTextColor="#A6AEC1"
+          value={_user.firstName}
+        />
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        <LabelTitle>Last Name</LabelTitle>
+        <AuthTextInput
+          onChangeText={(lastName) => setUser({ ..._user, lastName })}
+          placeholder="lastName"
+          placeholderTextColor="#A6AEC1"
+          value={_user.lastName}
+        />
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        <LabelTitle> Email </LabelTitle>
+        <AuthTextInput
+          onChangeText={(email) => setUser({ ..._user, email })}
+          placeholder="email"
+          placeholderTextColor="#A6AEC1"
+          value={_user.email}
+        />
+      </View>
 
       <AuthButton onPress={handleSubmit}>
         <AuthButtonText>Edit</AuthButtonText>
