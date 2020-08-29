@@ -1,13 +1,11 @@
 import React from "react";
-import { Thumbnail, Card, CardItem, Right } from "native-base";
+import { Thumbnail, Card, CardItem, Right, View } from "native-base";
 // Styling
-import { Text, TripItemStyled } from "./styles";
-import { Button } from "react-native-paper";
+import { Text, TripItemStyled, TrashIcon } from "./styles";
 import { observer } from "mobx-react";
-import { TrashIcon } from "./styles";
 import Trip from "../../media/Trip.png";
 import tripStore from "../../stores/tripStore";
-import TripDetail from "../TripDetail";
+import authStore from "../../stores/authStore";
 
 const MyTripItem = ({ user, trip, navigation }) => {
   return (
@@ -19,18 +17,20 @@ const MyTripItem = ({ user, trip, navigation }) => {
           ) : (
             <Thumbnail source={Trip} />
           )}
+
           <TripItemStyled
             onPress={() => navigation.navigate("TripDetail", { trip, user })}
           >
             {trip.title}
           </TripItemStyled>
-
           <Right>
-            <TrashIcon
-              name="trash"
-              type="Ionicons"
-              onPress={() => tripStore.deleteTrip(trip.id)}
-            />
+            {user.id === authStore.user.id ? (
+              <TrashIcon
+                name="trash"
+                type="Ionicons"
+                onPress={() => tripStore.deleteTrip(trip.id)}
+              />
+            ) : null}
           </Right>
         </CardItem>
       </Card>

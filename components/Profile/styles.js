@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { Icon, Button } from "native-base";
 
 export const TextStyle = styled.Text`
   color: navy;
@@ -19,7 +20,7 @@ export const AuthContainer = styled.View`
 
 export const AuthTitle = styled.Text`
   color: black;
-  font-size: 24px;
+  font-size: 18px;
   margin-bottom: 20px;
   border-bottom-color: black;
 `;
@@ -27,11 +28,12 @@ export const AuthTitle = styled.Text`
 export const AuthTextInput = styled.TextInput`
   align-self: stretch;
   text-align: left;
-  height: 40px;
-  margin-bottom: 30px;
+  height: 20px;
+  margin-bottom: 20px;
   color: black;
   border-bottom-color: black;
   border-bottom-width: 1px;
+  width: 200px;
 `;
 
 export const AuthButton = styled.TouchableOpacity`
@@ -39,7 +41,7 @@ export const AuthButton = styled.TouchableOpacity`
   align-items: center;
   padding: 20px;
   background-color: lightblue;
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 
 export const AuthButtonText = styled.Text`
@@ -51,4 +53,20 @@ export const AuthButtonText = styled.Text`
 export const AuthOther = styled.Text`
   color: black;
   margin-top: 15px;
+`;
+export const TrashIcon = styled(Icon)`
+  color: red;
+`;
+
+export const SmallText = styled.Text`
+  font-size: 10;
+  font-weight: bold;
+  color: black;
+  margin-left: 10;
+`;
+export const LabelTitle = styled.Text`
+  color: black;
+  font-size: 16px;
+  border-bottom-color: black;
+  padding-right: 20;
 `;

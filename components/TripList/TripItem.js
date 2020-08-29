@@ -14,60 +14,75 @@ import {
   Icon,
   Button,
   Text,
+  View,
 } from "native-base";
-import { Image, ScrollView } from "react-native";
+import { Image } from "react-native";
+import Trip from "../../media/Trip.png";
 
 const TripItem = ({ trip, navigation }) => {
   const user = authStore.users.find((user) => user.id === trip.userId);
 
   return (
-    <ScrollView>
-      <Card style={{ flex: 0 }}>
-        <CardItem>
-          <Left>
-            <Body>
-              {user.image ? (
-                <Thumbnail source={{ uri: user.image }} />
-              ) : (
-                <Thumbnail source={pic} />
-              )}
-              <TripItemStyled
-                onPress={() => navigation.navigate("Profile", { _user: user })}
-              >
-                {user.username}
-              </TripItemStyled>
-              <TripItemStyled>{trip.title}</TripItemStyled>
-            </Body>
-          </Left>
-        </CardItem>
-        <CardItem>
-          <Body>
+    <Card>
+      <CardItem>
+        <View style={{ flexDirection: "row" }}>
+          {user.image ? (
+            <Thumbnail small source={{ uri: user.image }} />
+          ) : (
+            <Thumbnail small source={pic} />
+          )}
+
+          <TripItemStyled
+            style={{ marginTop: 9, marginLeft: 10 }}
+            onPress={() => navigation.navigate("UserProfile", { user: user })}
+          >
+            {user.username}
+          </TripItemStyled>
+        </View>
+      </CardItem>
+      <CardItem>
+        <Body style={{ alignItems: "center" }}>
+          {trip.image ? (
             <Image
               source={{ uri: trip.image }}
               style={{
                 height: 200,
-                width: 350,
+                width: 380,
                 flex: 1,
               }}
             />
+          ) : (
+            <Image
+              source={Trip}
+              style={{
+                height: 200,
+                width: 380,
+                flex: 1,
+              }}
+            />
+          )}
+        </Body>
+      </CardItem>
+      <Text note style={{ marginLeft: 15 }}>
+        {trip.createdAt}
+      </Text>
+      <CardItem>
+        <TripItemStyled
+          onPress={() => navigation.navigate("TripDetail", { trip, user })}
+        >
+          {trip.title}
+        </TripItemStyled>
+      </CardItem>
 
-            <TripItemStyled
-              onPress={() => navigation.navigate("TripDetail", { trip, user })}
-            >
-              {trip.title}
-            </TripItemStyled>
-          </Body>
-        </CardItem>
-        <CardItem>
-          <Left>
-            <Button transparent textStyle={{ color: "#87838B" }}>
-              <Icon name="logo-github" />
-              <Text>likes</Text>
-            </Button>
-          </Left>
-        </CardItem>
-      </Card>
-    </ScrollView>
+      <CardItem>
+        <Left>
+          <Button transparent textStyle={{ color: "#87838B" }}>
+            <Icon name="logo-github" />
+            <Text>likes</Text>
+          </Button>
+        </Left>
+      </CardItem>
+    </Card>
   );
 };
 

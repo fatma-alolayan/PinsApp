@@ -5,24 +5,20 @@ import { List, Spinner, Container, Card } from "native-base";
 import tripStore from "../../stores/tripStore";
 import TripItem from "./TripItem";
 import authStore from "../../stores/authStore";
-
-const { height } = Dimensions.get("window");
+// import { TextStyle } from "./styles";
 const TripList = ({ navigation }) => {
-  onContentSizeChange = (contentWidth, contentHeight) => {
-    this.setState({ screenHeight: contentHeight });
-  };
-
   if (tripStore.loading) return <Spinner color="lightblue" />;
 
   const tripList = tripStore.trips.map((trip) => (
     <TripItem trip={trip} key={trip.id} navigation={navigation} />
   ));
+  if (tripList.length === 0) return <TextStyle>No Trips</TextStyle>;
   return (
-    <ScrollView>
-      <Container>
+    <Container>
+      <ScrollView>
         <List>{tripList}</List>
-      </Container>
-    </ScrollView>
+      </ScrollView>
+    </Container>
   );
 };
 

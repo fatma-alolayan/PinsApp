@@ -2,16 +2,17 @@ import styled from "styled-components/native";
 
 export const TextStyle = styled.Text`
   color: navy;
-  font-size: 24;
+  font-size: 18;
   text-align: center;
   padding-top: 100px;
 `;
 export const TripItemStyled = styled.Text`
   color: black;
-  font-size: 18px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-left: 20px;
+  font-size: 16px;
+
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+  /* padding-left: 20px; */
 `;
 export const TripStyled = styled.Text`
   color: grey;
