@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
-
+import RootNavigator from "../../components/Navigation";
 //store
 import authStore from "../../stores/authStore";
 
@@ -32,8 +32,10 @@ const Signin = ({ navigation }) => {
   };
   const handleSubmit = async () => {
     await authStore.signin(user);
+
     if (authStore.user) {
-      navigation.replace("Home");
+      // navigation.replace("Home");
+      <RootNavigator />;
     } else {
       setUser({ ...(user.isValidUser = false) });
     }

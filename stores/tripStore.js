@@ -11,6 +11,11 @@ class TripStore {
       // REVIEW: Remove the extra spacing
 
       this.trips = res.data;
+
+      this.trips = this.trips.sort((a, b) =>
+        a.updatedAt < b.updatedAt ? 1 : -1
+      );
+
       this.loading = false;
     } catch (error) {
       console.error("TripStore -> fetchTrips -> error", error);
@@ -33,9 +38,11 @@ class TripStore {
       await instance.delete(`/trips/${tripId}`);
       this.trips = this.trips.filter((trip) => trip.id !== +tripId);
     } catch (error) {
-      console.error("ShopStore -> deleteShop -> error", error);
+
+      console.error("TripStore -> deleteTrip -> error", error);
     }
   };
+
 
   updateTrip = async (updatedTrip) => {
     try {

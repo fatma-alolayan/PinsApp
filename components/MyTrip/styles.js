@@ -3,7 +3,7 @@ import { Icon, Button } from "native-base";
 
 export const TextStyle = styled.Text`
   color: navy;
-  font-size: 24;
+  font-size: 18;
   text-align: center;
   padding-top: 100px;
 `;

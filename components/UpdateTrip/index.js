@@ -54,9 +54,9 @@ const UpdateTrip = ({ navigation, route }) => {
       <AuthButton onPress={handleSubmit}>
         <AuthButtonText>Update</AuthButtonText>
       </AuthButton>
-      <AuthOther onPress={() => navigation.navigate("Profile")}>
-        Cancel
-      </AuthOther>
+
+      <AuthOther onPress={() => navigation.goBack()}>Cancel</AuthOther>
+
     </AuthContainer>
   );
 };
