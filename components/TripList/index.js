@@ -4,9 +4,11 @@ import { ScrollView, Dimensions } from "react-native";
 import { List, Spinner, Container, Card } from "native-base";
 import tripStore from "../../stores/tripStore";
 import TripItem from "./TripItem";
+
 import authStore from "../../stores/authStore";
 // import { TextStyle } from "./styles";
 const TripList = ({ navigation }) => {
+
   if (tripStore.loading) return <Spinner color="lightblue" />;
 
   const tripList = tripStore.trips.map((trip) => (
@@ -17,8 +19,10 @@ const TripList = ({ navigation }) => {
     <Container>
       <ScrollView>
         <List>{tripList}</List>
+
       </ScrollView>
     </Container>
+
   );
 };
 

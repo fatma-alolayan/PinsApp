@@ -17,7 +17,9 @@ class AuthStore {
   fetchUsers = async () => {
     try {
       const res = await instance.get("/");
+
       this.users = res.data;
+
       this.loading = false;
     } catch (error) {
       console.error("Userstore -> fetchUsers -> error", error);

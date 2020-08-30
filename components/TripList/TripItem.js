@@ -1,8 +1,11 @@
+
 import React from "react";
 
 // Styling
 import { TripItemStyled } from "./styles";
+
 import pic from "../../media/user.png";
+
 import authStore from "../../stores/authStore";
 import { observer } from "mobx-react";
 import {
@@ -20,9 +23,11 @@ import { Image } from "react-native";
 import Trip from "../../media/Trip.png";
 
 const TripItem = ({ trip, navigation }) => {
+
   const user = authStore.users.find((user) => user.id === trip.userId);
 
   return (
+
     <Card>
       <CardItem>
         <View style={{ flexDirection: "row" }}>
@@ -43,6 +48,7 @@ const TripItem = ({ trip, navigation }) => {
       <CardItem>
         <Body style={{ alignItems: "center" }}>
           {trip.image ? (
+
             <Image
               source={{ uri: trip.image }}
               style={{
@@ -74,6 +80,7 @@ const TripItem = ({ trip, navigation }) => {
         </TripItemStyled>
       </CardItem>
 
+
       <CardItem>
         <Left>
           <Button transparent textStyle={{ color: "#87838B" }}>
@@ -83,7 +90,9 @@ const TripItem = ({ trip, navigation }) => {
         </Left>
       </CardItem>
     </Card>
+
   );
 };
 
 export default observer(TripItem);
+
