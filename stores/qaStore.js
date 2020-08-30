@@ -17,14 +17,14 @@ class QAStore {
     }
   };
 
-  createQ = async (newQ, trip) => {
+  createQ = async (newQ) => {
     try {
       const formData = new FormData();
+
       for (const key in newQ) formData.append(key, newQ[key]);
-      const res = await instance.post("/trips//${trip.id}/q", newQ);
+
+      const res = await instance.post(`/trips/${newQ.tripId}/q`, newQ);
       const _Q = res.data;
-      this.qa.push(_Q);
-      trip.qa.push({ id: _Q.id });
       this.qa.push(res.data);
     } catch (error) {
       console.error("QAStore -> createQ -> error", error);
