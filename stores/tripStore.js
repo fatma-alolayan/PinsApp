@@ -8,7 +8,7 @@ class TripStore {
   fetchTrips = async () => {
     try {
       const res = await instance.get("/trips");
-
+      // REVIEW: Remove the extra spacing
 
       this.trips = res.data;
 
@@ -17,12 +17,10 @@ class TripStore {
       );
 
       this.loading = false;
-
     } catch (error) {
       console.error("TripStore -> fetchTrips -> error", error);
     }
   };
-
 
   createTrip = async (newTrip) => {
     try {

@@ -18,7 +18,9 @@ class AuthStore {
     try {
       const res = await instance.get("/");
 
+
       this.users = res.data;
+
 
       this.loading = false;
     } catch (error) {

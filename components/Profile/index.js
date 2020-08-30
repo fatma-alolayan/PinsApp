@@ -89,6 +89,7 @@ const Profile = ({ navigation }) => {
     );
   };
   return (
+    // REVIEW: Remove the fragments <> </>
     <>
 
       {!authStore.user ? navigation.replace("Intro") : null}

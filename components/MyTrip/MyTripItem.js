@@ -10,6 +10,7 @@ import authStore from "../../stores/authStore";
 const MyTripItem = ({ user, trip, navigation }) => {
 
   return (
+    // REVIEW: Remove fragments <> </>
     <>
       <Card>
         <CardItem>

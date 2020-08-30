@@ -1,4 +1,3 @@
-
 import React from "react";
 
 // Styling
@@ -27,15 +26,10 @@ const TripItem = ({ trip, navigation }) => {
   const user = authStore.users.find((user) => user.id === trip.userId);
 
   return (
-
-    <Card>
+<Card>
       <CardItem>
         <View style={{ flexDirection: "row" }}>
-          {user.image ? (
-            <Thumbnail small source={{ uri: user.image }} />
-          ) : (
-            <Thumbnail small source={pic} />
-          )}
+          <Thumbnail small source={user.image ? { uri: user.image } : pic} />
 
           <TripItemStyled
             style={{ marginTop: 9, marginLeft: 10 }}
@@ -47,26 +41,14 @@ const TripItem = ({ trip, navigation }) => {
       </CardItem>
       <CardItem>
         <Body style={{ alignItems: "center" }}>
-          {trip.image ? (
-
-            <Image
-              source={{ uri: trip.image }}
-              style={{
-                height: 200,
-                width: 380,
-                flex: 1,
-              }}
-            />
-          ) : (
-            <Image
-              source={Trip}
-              style={{
-                height: 200,
-                width: 380,
-                flex: 1,
-              }}
-            />
-          )}
+          <Image
+            style={{
+              height: 200,
+              width: 380,
+              flex: 1,
+            }}
+            source={trip.image ? { uri: trip.image } : Trip}
+          />
         </Body>
       </CardItem>
       <Text note style={{ marginLeft: 15 }}>
@@ -80,7 +62,6 @@ const TripItem = ({ trip, navigation }) => {
         </TripItemStyled>
       </CardItem>
 
-
       <CardItem>
         <Left>
           <Button transparent textStyle={{ color: "#87838B" }}>
@@ -90,7 +71,6 @@ const TripItem = ({ trip, navigation }) => {
         </Left>
       </CardItem>
     </Card>
-
   );
 };
 
