@@ -14,12 +14,13 @@ const QA = ({ navigation, trip }) => {
   //     <TripItem trip={trip} key={trip.id} navigation={navigation} />
   //   ));
   //   if (tripList.length === 0) return <TextStyle>No Trips</TextStyle>;
-
-  const [q, setQ] = useState("");
+  const reset = { q: "", a: "", userId: authStore.user.id, tripId: trip.id };
+  const [qustion, setQ] = useState(reset);
 
   const handleSubmit = async () => {
-    console.log(",,,,,,", q);
-    // await qaStore.createQ(q);
+    console.log(",,,,,,Qustion", Qustion);
+    await qaStore.createQ(Qustion);
+    setQ(reset);
   };
 
   return (
@@ -28,10 +29,9 @@ const QA = ({ navigation, trip }) => {
         <>
           <Text>ask me !</Text>
           <TextInput
-            onChangeText={(Q) => setQ(Q)}
-            placeholder="Qustion"
+            onChangeText={(q) => setQ({ ...qustion, q })}
+            placeholder="q"
             placeholderTextColor="#A6AEC1"
-            // value={_trip.title}
           />
           <Right>
             <Text onPress={handleSubmit}>send</Text>
