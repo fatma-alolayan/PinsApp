@@ -2,7 +2,9 @@ import React from "react";
 
 // Styling
 import { TripItemStyled } from "./styles";
+
 import pic from "../../media/user.png";
+
 import authStore from "../../stores/authStore";
 import { observer } from "mobx-react";
 import {
@@ -20,10 +22,11 @@ import { Image } from "react-native";
 import Trip from "../../media/Trip.png";
 
 const TripItem = ({ trip, navigation }) => {
+
   const user = authStore.users.find((user) => user.id === trip.userId);
 
   return (
-    <Card>
+<Card>
       <CardItem>
         <View style={{ flexDirection: "row" }}>
           <Thumbnail small source={user.image ? { uri: user.image } : pic} />
@@ -72,3 +75,4 @@ const TripItem = ({ trip, navigation }) => {
 };
 
 export default observer(TripItem);
+

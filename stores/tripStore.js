@@ -8,6 +8,7 @@ class TripStore {
   fetchTrips = async () => {
     try {
       const res = await instance.get("/trips");
+      // REVIEW: Remove the extra spacing
 
       this.trips = res.data;
 
@@ -37,9 +38,11 @@ class TripStore {
       await instance.delete(`/trips/${tripId}`);
       this.trips = this.trips.filter((trip) => trip.id !== +tripId);
     } catch (error) {
+
       console.error("TripStore -> deleteTrip -> error", error);
     }
   };
+
 
   updateTrip = async (updatedTrip) => {
     try {
@@ -60,6 +63,7 @@ decorate(TripStore, {
 });
 
 const tripStore = new TripStore();
+
 tripStore.fetchTrips();
 
 export default tripStore;

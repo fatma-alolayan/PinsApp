@@ -1,12 +1,14 @@
 import styled from "styled-components/native";
 import { Icon, Button } from "native-base";
 
+
 export const TextStyle = styled.Text`
   color: navy;
   font-size: 24;
   text-align: center;
   padding-top: 100px;
 `;
+
 
 export const AuthContainer = styled.View`
   flex: 1;
@@ -54,6 +56,7 @@ export const AuthOther = styled.Text`
   color: black;
   margin-top: 15px;
 `;
+
 export const TrashIcon = styled(Icon)`
   color: red;
 `;
@@ -70,3 +73,4 @@ export const LabelTitle = styled.Text`
   border-bottom-color: black;
   padding-right: 20;
 `;
+

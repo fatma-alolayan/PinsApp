@@ -19,6 +19,7 @@ import { TextInput, Card } from "react-native-paper";
 import qaStore from "../../stores/qaStore";
 import { View, FlatList, Dimensions, Image, ScrollView } from "react-native";
 const QA = ({ navigation, trip }) => {
+
   const foundQA = qaStore.qa.filter((qa) => qa.tripId === trip.id);
   let counter = 1;
   const [askMe, setAskMe] = useState(false);
@@ -35,6 +36,7 @@ const QA = ({ navigation, trip }) => {
   const handleSubmit = async () => {
     await qaStore.createQ(question);
     setAskMe(reset);
+
   };
   const numColumns = 1;
 
@@ -80,6 +82,7 @@ const QA = ({ navigation, trip }) => {
     <ScrollView>
       {authStore.user.id !== trip.userId ? (
         <>
+
           <Text style={{ paddingBottom: 20 }} onPress={() => setAskMe(!askMe)}>
             ask me
             <Icon name="comment-question-outline" size="25" />
@@ -97,6 +100,7 @@ const QA = ({ navigation, trip }) => {
           ) : null}
 
           <Right></Right>
+
         </>
       ) : null}
       {answer ? <Text> ......</Text> : null}

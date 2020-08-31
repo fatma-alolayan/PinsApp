@@ -6,3 +6,9 @@ export const TextStyle = styled.Text`
   text-align: center;
   padding-top: 100px;
 `;
+
+export const SearchBarStyled = styled.Text`
+  padding: 2%;
+  margin: 1% auto;
+  width: 20%;
+`;

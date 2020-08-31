@@ -26,6 +26,7 @@ const Signin = ({ navigation }) => {
   });
   const [showPass, setShowPass] = useState(false);
 
+
   const updateShowPass = () => {
     setShowPass(!showPass);
   };
@@ -38,6 +39,7 @@ const Signin = ({ navigation }) => {
     } else {
       setUser({ ...(user.isValidUser = false) });
     }
+
   };
 
   return (

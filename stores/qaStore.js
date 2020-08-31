@@ -24,9 +24,11 @@ class QAStore {
 
       for (const key in newQ) formData.append(key, newQ[key]);
 
+
       const res = await instance.post(`/trips//${newQ.tripId}/q`, newQ);
       const _Q = res.data;
       this.qa.push(_Q);
+
     } catch (error) {
       console.error("QAStore -> createQ -> error", error);
     }

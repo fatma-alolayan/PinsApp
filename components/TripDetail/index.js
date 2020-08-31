@@ -24,14 +24,20 @@ import pic from "../../media/user.png";
 import QA from "../QA";
 
 const TripDetail = ({ route, navigation }) => {
+
+ const { trip, user } = route.params;`
+
   if (tripStore.loading) return <Spinner color="lightblue" />;
 
-  const { trip, user } = route.params;
+
+
+
 
   const foundTrip = tripStore.trips.find((_trip) => _trip.id === trip.id);
   if (!foundTrip) return navigation.replace("Home");
 
   return (
+
     <ScrollView>
       <Card>
         <CardItem>
@@ -53,6 +59,7 @@ const TripDetail = ({ route, navigation }) => {
         <CardItem>
           <Body style={{ alignItems: "center" }}>
             {trip.image ? (
+
               <Image
                 source={{ uri: trip.image }}
                 style={{

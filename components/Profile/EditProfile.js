@@ -112,5 +112,3 @@ const EditProfile = ({ navigation }) => {
     </AuthContainer>
   );
 };
-
-export default observer(EditProfile);
