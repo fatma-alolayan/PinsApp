@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
 
-//
+// style
 import { Text, Right, Content, CardItem, Body, Thumbnail } from "native-base";
-import { TextInput, Card } from "react-native-paper";
-import { View, FlatList, Dimensions, Image, ScrollView } from "react-native";
+import { Card } from "react-native-paper";
+import { View, ScrollView } from "react-native";
+import { TextInputStyle, SubmitButton } from "./styles";
 
+// image
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import pic from "../../media/user.png";
 
@@ -18,6 +20,10 @@ import qaStore from "../../stores/qaStore";
 
 const QA = ({ navigation, trip }) => {
   const foundQA = qaStore.qa.filter((qa) => qa.tripId === trip.id);
+
+  const qa = foundQA.map((qa) => (
+    <Answer qa={qa} key={qa.id} trip={trip} navigation={navigation} />
+  ));
   let counter = 1;
   const [askMe, setAskMe] = useState(false);
   const [answer, setAnswer] = useState(false);
@@ -31,54 +37,10 @@ const QA = ({ navigation, trip }) => {
   });
 
   const handleQuestion = async () => {
-    await qaStore.createQ(question);
-    setQ(reset);
     setAskMe(false);
+    await qaStore.createQ(question);
   };
 
-  const numColumns = 1;
-
-  const renderItem = ({ item }) => {
-    const user = authStore.users.find((user) => item.userId === user.id);
-
-    return (
-      <Card>
-        <CardItem style={{ backgroundColor: "lightgray" }}>
-          <View style={{ flexDirection: "row" }}>
-            <Thumbnail
-              style={{ width: 20, height: 20 }}
-              source={user.image ? { uri: user.image } : pic}
-            />
-            <Text style={{ fontSize: 14, paddingLeft: 10 }}>
-              {user.username}
-            </Text>
-          </View>
-        </CardItem>
-
-        <CardItem style={{ backgroundColor: "lightgray", paddingTop: 0 }}>
-          <Text>{counter++}. </Text>
-          <Text style={{ color: "blue" }}>{item.q}</Text>
-
-          <Body></Body>
-          {authStore.user.id === trip.userId ? (
-            <>
-              <Right>
-                <Icon
-                  onPress={() => setAnswer(!answer)}
-                  name="message-text-outline"
-                  size="25"
-                />
-              </Right>
-            </>
-          ) : null}
-        </CardItem>
-        {answer ? <Answer qa={item} /> : null}
-        <CardItem>
-          {item.a ? <Text style={{ color: "black" }}>{item.a}</Text> : null}
-        </CardItem>
-      </Card>
-    );
-  };
   return (
     <ScrollView>
       {authStore.user.id !== trip.userId ? (
@@ -87,32 +49,34 @@ const QA = ({ navigation, trip }) => {
             ask me
             <Icon name="comment-question-outline" size="25" />
           </Text>
+
           {askMe ? (
-            <>
-              <TextInput
-                onChangeText={(q) => setQ({ ...question, q })}
-                // placeholder="q"
-
-                placeholderTextColor="#A6AEC1"
-              />
-              <Text onPress={handleQuestion}>send</Text>
-            </>
+            <Card
+              style={{
+                borderColor: "lightgray",
+                borderWidth: 1,
+                marginBottom: 10,
+              }}
+            >
+              <CardItem style={{ backgroundColor: "#f0efeb", paddingTop: 0 }}>
+                <TextInputStyle
+                  onChangeText={(q) => setQ({ ...question, q })}
+                  placeholderTextColor="#A6AEC1"
+                  placeholder="Question"
+                  multiline={true}
+                />
+              </CardItem>
+              <SubmitButton>
+                <Text style={{ fontSize: 14 }} onPress={handleQuestion}>
+                  send
+                </Text>
+              </SubmitButton>
+            </Card>
           ) : null}
-
-          <Right></Right>
         </>
       ) : null}
 
-      {foundQA.length !== 0 ? (
-        <Content>
-          <FlatList
-            data={foundQA}
-            style={{ flex: 1, marginVertical: 1 }}
-            renderItem={renderItem}
-            numColumns={1}
-          />
-        </Content>
-      ) : null}
+      <View>{qa}</View>
     </ScrollView>
   );
 };
