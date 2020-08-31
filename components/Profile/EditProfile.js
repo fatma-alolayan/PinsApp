@@ -17,6 +17,15 @@ import { Thumbnail } from "native-base";
 import pic from "../../media/user.png";
 import { SmallText, LabelTitle } from "./styles";
 import { View } from "react-native-animatable";
+import ImagePicker from "react-native-image-crop-picker";
+
+import {
+  TouchableOpacity,
+  ImageBackground,
+  TextInput,
+  StyleSheet,
+  Text,
+} from "react-native";
 
 const EditProfile = ({ navigation }) => {
   const [changeImage, setchangeImage] = useState(false);
@@ -46,6 +55,7 @@ const EditProfile = ({ navigation }) => {
       >
         Change image
       </SmallText>
+
       {changeImage ? (
         <View style={{ flexDirection: "row" }}>
           <LabelTitle>Image</LabelTitle>

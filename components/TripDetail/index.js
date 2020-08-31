@@ -26,8 +26,7 @@ import QA from "../QA";
 const TripDetail = ({ route, navigation }) => {
   if (tripStore.loading) return <Spinner color="lightblue" />;
 
-  const { trip } = route.params;
-  const { user } = route.params;
+  const { trip, user } = route.params;
 
   const foundTrip = tripStore.trips.find((_trip) => _trip.id === trip.id);
   if (!foundTrip) return navigation.replace("Home");
