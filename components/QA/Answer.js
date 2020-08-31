@@ -1,49 +1,113 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
-import { Text, Right, Left, Body } from "native-base";
-import { TextInput, Button } from "react-native-paper";
+
+// styls
+import {
+  Text,
+  Right,
+  Left,
+  Body,
+  Card,
+  CardItem,
+  Thumbnail,
+} from "native-base";
+import { Button } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+// image
+import pic from "../../media/user.png";
+
+// style
+import { MultiLineInput, SubmitButton, SmallText } from "./styles";
 
 // store
 import qaStore from "../../stores/qaStore";
 import { View } from "react-native-animatable";
-const Answer = ({ navigation, qa }) => {
+import authStore from "../../stores/authStore";
+
+const Answer = ({ navigation, qa, trip }) => {
   const [answer, setA] = useState(qa);
 
   const handleAnswer = async () => {
+    setAddAnswer(!addAnswer);
     await qaStore.updateA(answer);
-    setA(reset);
-    navigation.goBack();
   };
-  const numColumns = 1;
+
+  const [addAnswer, setAddAnswer] = useState(false);
+  const user = authStore.users.find((user) => qa.userId === user.id);
+
+  const [question, setQ] = useState({
+    q: "",
+    a: "",
+    userId: qa.userId,
+    tripId: qa.tripId,
+  });
+  console.log("qa.userId", qa.userId);
+
+  const handleQuestion = async () => {
+    await qaStore.createQ(question);
+    setAskMe(false);
+  };
 
   return (
-    <>
-      <View>
-        <TextInput
-          onChangeText={(a) => setA({ ...answer, a })}
-          placeholder="answer"
-          placeholderTextColor="#A6AEC1"
-          value={answer.a}
-        />
+    <Card
+      style={{
+        borderColor: "lightgray",
+        borderWidth: 1,
+        marginBottom: 10,
+      }}
+    >
+      <CardItem style={{ backgroundColor: "#f0efeb" }}>
+        <View style={{ flexDirection: "row" }}>
+          <Thumbnail
+            style={{ width: 20, height: 20 }}
+            source={user.image ? { uri: user.image } : pic}
+          />
+          <Text style={{ fontSize: 14, paddingLeft: 10 }}>{user.username}</Text>
+        </View>
+      </CardItem>
 
-        <Left></Left>
+      <CardItem style={{ backgroundColor: "#f0efeb", paddingTop: 0 }}>
+        <Text style={{ color: "blue" }}>{qa.q}</Text>
 
-        <Right>
-          <Button
-            style={{
-              borderColor: "grey",
-              borderWidth: 1,
-              width: 80,
-              height: 40,
-            }}
-          >
-            <Text style={{ fontSize: 14 }} onPress={handleAnswer}>
-              send
-            </Text>
-          </Button>
-        </Right>
-      </View>
-    </>
+        <Body></Body>
+        {authStore.user.id === trip.userId ? (
+          <>
+            <Right>
+              <Icon
+                onPress={() => setAddAnswer(!addAnswer)}
+                name="message-text-outline"
+                size="20"
+              />
+              <SmallText>Replay</SmallText>
+            </Right>
+          </>
+        ) : null}
+      </CardItem>
+      {addAnswer ? (
+        <>
+          <View>
+            <MultiLineInput
+              onChangeText={(a) => setA({ ...answer, a })}
+              placeholder="answer"
+              placeholderTextColor="#A6AEC1"
+              multiline={true}
+              value={answer.a}
+            />
+
+            <SubmitButton>
+              <Text style={{ fontSize: 14 }} onPress={handleAnswer}>
+                send
+              </Text>
+            </SubmitButton>
+          </View>
+        </>
+      ) : (
+        <CardItem>
+          {qa.a ? <Text style={{ color: "black" }}>{qa.a}</Text> : null}
+        </CardItem>
+      )}
+    </Card>
   );
 };
 
