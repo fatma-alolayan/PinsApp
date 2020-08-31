@@ -16,11 +16,11 @@ import {
 
 const Signup = ({ navigation }) => {
   const [user, setUser] = useState({
-    username: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
+    // username: "",
+    // firstName: "",
+    // lastName: "",
+    // email: "",
+    // password: "",
   });
 
   const handleSubmit = async () => {

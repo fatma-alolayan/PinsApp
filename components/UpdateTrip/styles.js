@@ -45,3 +45,14 @@ export const AuthOther = styled.Text`
   color: black;
   margin-top: 15px;
 `;
+
+export const AuthMultiLineInput = styled.TextInput`
+  align-self: stretch;
+  text-align: left;
+  height: 180px;
+  margin-bottom: 5px;
+  color: black;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+  border-width: 1;
+`;

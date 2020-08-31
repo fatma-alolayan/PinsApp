@@ -8,11 +8,16 @@ import TripItem from "./TripItem";
 
 // store
 import tripStore from "../../stores/tripStore";
+import authStore from "../../stores/authStore";
 
 const TripList = ({ navigation }) => {
   if (tripStore.loading) return <Spinner color="lightblue" />;
 
-  const tripList = tripStore.trips.map((trip) => (
+  const foundTrip = tripStore.trips.filter(
+    (trip) => trip.userId !== authStore.user.id
+  );
+
+  const tripList = foundTrip.map((trip) => (
     <TripItem trip={trip} key={trip.id} navigation={navigation} />
   ));
   if (tripList.length === 0) return <TextStyle>No Trips</TextStyle>;

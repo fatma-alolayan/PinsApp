@@ -86,7 +86,7 @@ const HomeStackScreen = ({ navigation }) => (
       name="Home"
       component={TripList}
       options={{
-        title: "",
+        title: false,
 
         headerLeft: () => (
           <Icon.Button
@@ -102,6 +102,7 @@ const HomeStackScreen = ({ navigation }) => (
       name="Profile"
       component={Profile}
       options={{
+        title: false,
         headerRight: () => (
           <Icon
             style={{ paddingRight: 10 }}
@@ -126,6 +127,7 @@ const HomeStackScreen = ({ navigation }) => (
       name="Search"
       component={Search}
       options={{
+        title: false,
         headerLeft: () => (
           <Icon.Button
             name="ios-menu"
@@ -141,6 +143,7 @@ const HomeStackScreen = ({ navigation }) => (
       name="AddTrip"
       component={AddTrip}
       options={{
+        title: false,
         headerLeft: () => (
           <Icon.Button
             name="ios-menu"
@@ -156,6 +159,7 @@ const HomeStackScreen = ({ navigation }) => (
       name="TripDetail"
       component={TripDetail}
       options={{
+        title: false,
         headerRight: () => (
           <Icon
             style={{ paddingRight: 10 }}
@@ -179,6 +183,7 @@ const HomeStackScreen = ({ navigation }) => (
       name="EditProfile"
       component={EditProfile}
       options={{
+        title: false,
         headerLeft: () => (
           <Icon.Button
             name="ios-menu"
@@ -194,6 +199,7 @@ const HomeStackScreen = ({ navigation }) => (
       name="UpdateTrip"
       component={UpdateTrip}
       options={{
+        title: false,
         headerLeft: () => (
           <Icon.Button
             name="ios-menu"

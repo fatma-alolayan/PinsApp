@@ -27,6 +27,16 @@ export const AuthTextInput = styled.TextInput`
   border-bottom-width: 1px;
 `;
 
+export const AuthMultiLineInput = styled.TextInput`
+  align-self: stretch;
+  text-align: left;
+  height: 180px;
+  margin-bottom: 5px;
+  color: black;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+  border-width: 1;
+`;
 export const AuthButton = styled.TouchableOpacity`
   align-self: stretch;
   align-items: center;

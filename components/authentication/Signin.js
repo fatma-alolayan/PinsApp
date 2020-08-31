@@ -20,6 +20,11 @@ import { Text } from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Signin = ({ navigation }) => {
+  const reset = {
+    username: "",
+    password: "",
+    isValidUser: true,
+  };
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -37,6 +42,7 @@ const Signin = ({ navigation }) => {
       <RootNavigator />;
     } else {
       setUser({ ...(user.isValidUser = false) });
+      // setUser(reset);
     }
   };
 
@@ -48,12 +54,14 @@ const Signin = ({ navigation }) => {
         placeholder="Username"
         placeholderTextColor="#A6AEC1"
         autoCapitalize="none"
+        value={user.username}
       />
       <AuthTextInput
         onChangeText={(password) => setUser({ ...user, password })}
         placeholder="Password"
         placeholderTextColor="#A6AEC1"
         secureTextEntry={showPass ? false : true}
+        value={user.password}
       />
       <TouchableOpacity onPress={updateShowPass}>
         {!showPass ? (

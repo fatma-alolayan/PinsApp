@@ -13,17 +13,18 @@ import {
   AuthButton,
   AuthButtonText,
   AuthOther,
-} from "../AddTrip/styles";
+  AuthMultiLineInput,
+} from "./styles";
 
 const UpdateTrip = ({ navigation, route }) => {
   const { trip } = route.params;
 
-  const rest = { title: "", image: "", details: "" };
-  const [_trip, setTrip] = useState(trip ?? rest);
+  const reset = { title: "", image: "", details: "" };
+  const [_trip, setTrip] = useState(trip ?? reset);
 
   const handleSubmit = async () => {
     await tripStore.updateTrip(_trip);
-    setTrip(rest);
+    setTrip(reset);
 
     if (authStore.user) navigation.goBack();
   };
@@ -44,11 +45,12 @@ const UpdateTrip = ({ navigation, route }) => {
         placeholderTextColor="#A6AEC1"
         value={_trip.image}
       />
-      <AuthTextInput
+      <AuthMultiLineInput
         onChangeText={(details) => setTrip({ ..._trip, details })}
         placeholder="details"
         placeholderTextColor="#A6AEC1"
         value={_trip.details}
+        multiline={true}
       />
 
       <AuthButton onPress={handleSubmit}>
