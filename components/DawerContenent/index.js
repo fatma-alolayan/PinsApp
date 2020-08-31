@@ -42,15 +42,6 @@ const DrawerContent = ({ navigation }) => {
               </View>
             </Drawer.Section>
 
-            {/* <Drawer.Section style={styles.drawerSection}>
-              <DrawerItem
-                icon={() => <Icon name="home-outline" color="grey" size="25" />}
-                label="Home"
-                onPress={() => {
-                  navigation.navigate("TripList");
-                }}
-              />
-            </Drawer.Section> */}
             <Drawer.Section style={styles.drawerSection}>
               <DrawerItem
                 icon={() => (

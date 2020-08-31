@@ -30,6 +30,9 @@ const TripDetail = ({ route, navigation }) => {
   if (tripStore.loading) return <Spinner color="lightblue" />;
 
 
+
+
+
   const foundTrip = tripStore.trips.find((_trip) => _trip.id === trip.id);
   if (!foundTrip) return navigation.replace("Home");
 
