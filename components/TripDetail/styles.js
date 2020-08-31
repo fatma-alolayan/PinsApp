@@ -13,11 +13,11 @@ export const TextStyled = styled.Text`
   color: black;
   font-size: 16px;
 
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
-  /* padding-left: 20px; */
+ 
+  margin-bottom: 5px; */
+
 `;
 export const TrashIcon = styled(Icon)`
-  color: red;
-  font-size: 18px;
+  color: #9d0208;
+  font-size: 20px;
 `;

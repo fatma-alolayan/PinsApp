@@ -21,6 +21,7 @@ import {
 } from "native-base";
 import Icon from "react-native-vector-icons/AntDesign";
 import { TextStyled, TrashIcon } from "./styles";
+import moment from "moment";
 
 // image
 import Trip from "../../media/Trip.png";
@@ -50,7 +51,7 @@ const TripDetail = ({ route, navigation }) => {
 
             <TextStyled
               style={{ marginTop: 9, marginLeft: 10 }}
-              onPress={() => navigation.navigate("UserProfile", { user: user })}
+              onPress={() => navigation.navigate("Profile", { user: user })}
             >
               {user.username}
             </TextStyled>
@@ -82,13 +83,13 @@ const TripDetail = ({ route, navigation }) => {
 
         <CardItem>
           <Left>
-            <Button transparent textStyle={{ color: "#87838B" }}>
+            {/* <Button transparent textStyle={{ color: "#87838B" }}>
               <Icon name="like2" size="18" />
               <Text>likes</Text>
-            </Button>
+            </Button> */}
           </Left>
           <Text note style={{ marginLeft: 15 }}>
-            {trip.createdAt}
+            {moment(trip.createdAt).format("MMM Do YYYY")}
           </Text>
         </CardItem>
         <CardItem>
@@ -98,23 +99,26 @@ const TripDetail = ({ route, navigation }) => {
           <TextStyled>{trip.details}</TextStyled>
         </CardItem>
         <CardItem>
-          {user.id === authStore.user.id ? (
-            <TrashIcon
-              name="trash"
-              type="Ionicons"
-              size="10"
-              onPress={() => tripStore.deleteTrip(trip.id)}
-            />
-          ) : null}
-
-          {authStore.user.id === trip.userId ? (
-            <Button
-              transparent
-              onPress={() => navigation.navigate("UpdateTrip", { trip: trip })}
-            >
-              <Text style={{ fontSize: 16 }}>Edit</Text>
-            </Button>
-          ) : null}
+          <Left></Left>
+          <Right>
+            {user.id === authStore.user.id ? (
+              <View style={{ flexDirection: "row" }}>
+                <Text
+                  onPress={() =>
+                    navigation.navigate("UpdateTrip", { trip: trip })
+                  }
+                  style={{ fontSize: 16, marginRight: 10 }}
+                >
+                  Edit
+                </Text>
+                <TrashIcon
+                  name="trash"
+                  type="Ionicons"
+                  onPress={() => tripStore.deleteTrip(trip.id)}
+                />
+              </View>
+            ) : null}
+          </Right>
         </CardItem>
         <CardItem>
           <QA trip={trip} />

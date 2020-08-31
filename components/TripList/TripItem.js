@@ -12,9 +12,11 @@ import {
   Button,
   Text,
   View,
+  Right,
 } from "native-base";
 import { Image } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
+import moment from "moment";
 
 // image
 import Trip from "../../media/Trip.png";
@@ -53,23 +55,27 @@ const TripItem = ({ trip, navigation }) => {
           />
         </Body>
       </CardItem>
-      <Text note style={{ marginLeft: 15 }}>
-        {trip.createdAt}
-      </Text>
+
       <CardItem>
         <TripItemStyled
           onPress={() => navigation.navigate("TripDetail", { trip, user })}
         >
           {trip.title}
         </TripItemStyled>
+        <Body></Body>
+        <Right>
+          <Text note style={{ marginLeft: 15 }}>
+            {moment(trip.createdAt).format("MMM Do YYYY")}
+          </Text>
+        </Right>
       </CardItem>
 
       <CardItem>
         <Left>
-          <Button transparent textStyle={{ color: "#87838B" }}>
+          {/* <Button transparent textStyle={{ color: "#87838B" }}>
             <Icon name="like2" size="18" />
             <Text>likes</Text>
-          </Button>
+          </Button> */}
         </Left>
       </CardItem>
     </Card>

@@ -13,7 +13,10 @@ import {
   AuthButton,
   AuthButtonText,
   AuthOther,
+  AuthMultiLineInput,
 } from "./styles";
+// import TextInput from "react-native-textinput-multiline";
+import TextInput from "react-native";
 
 const AddTrip = ({ navigation }) => {
   const rest = { title: "", image: "", details: "" };
@@ -43,11 +46,12 @@ const AddTrip = ({ navigation }) => {
         value={trip.image}
       />
 
-      <AuthTextInput
+      <AuthMultiLineInput
         onChangeText={(details) => setTrip({ ...trip, details })}
         placeholder="details"
         placeholderTextColor="#A6AEC1"
         value={trip.details}
+        multiline={true}
       />
 
       <AuthButton onPress={handleSubmit}>

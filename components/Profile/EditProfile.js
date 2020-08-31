@@ -22,7 +22,6 @@ import ImagePicker from "react-native-image-crop-picker";
 
 const EditProfile = ({ navigation }) => {
   const [changeImage, setchangeImage] = useState(false);
-
   const user = authStore.user;
 
   const [_user, setUser] = useState(user);
