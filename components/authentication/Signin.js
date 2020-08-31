@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
 import RootNavigator from "../../components/Navigation";
+
 //store
 import authStore from "../../stores/authStore";
 
@@ -26,7 +27,6 @@ const Signin = ({ navigation }) => {
   });
   const [showPass, setShowPass] = useState(false);
 
-
   const updateShowPass = () => {
     setShowPass(!showPass);
   };
@@ -34,12 +34,10 @@ const Signin = ({ navigation }) => {
     await authStore.signin(user);
 
     if (authStore.user) {
-      // navigation.replace("Home");
       <RootNavigator />;
     } else {
       setUser({ ...(user.isValidUser = false) });
     }
-
   };
 
   return (

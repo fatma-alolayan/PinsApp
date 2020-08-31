@@ -1,6 +1,8 @@
 import React from "react";
-import { Text } from "react-native";
+
+// image
 import logo from "../../media/logo.jpeg";
+
 // Styling
 import { HomeBackground, ButtomStyling, SignInStyle } from "./styles";
 import authStore from "../../stores/authStore";
