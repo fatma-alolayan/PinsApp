@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 
 //store
 import tripStore from "../../stores/tripStore";
+import authStore from "../../stores/authStore";
 
 //styles
 import {
@@ -13,7 +14,6 @@ import {
   AuthButtonText,
   AuthOther,
 } from "./styles";
-import authStore from "../../stores/authStore";
 
 const AddTrip = ({ navigation }) => {
   const rest = { title: "", image: "", details: "" };
@@ -23,9 +23,7 @@ const AddTrip = ({ navigation }) => {
     await tripStore.createTrip(trip);
 
     setTrip(rest);
-
     if (authStore.user) navigation.goBack();
-
   };
 
   return (
@@ -42,7 +40,7 @@ const AddTrip = ({ navigation }) => {
         onChangeText={(image) => setTrip({ ...trip, image })}
         placeholder="image"
         placeholderTextColor="#A6AEC1"
-        // value={_trip.image}
+        value={trip.image}
       />
 
       <AuthTextInput

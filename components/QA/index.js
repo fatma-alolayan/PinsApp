@@ -1,25 +1,22 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
+
+//
+import { Text, Right, Content, CardItem, Body, Thumbnail } from "native-base";
+import { TextInput, Card } from "react-native-paper";
+import { View, FlatList, Dimensions, Image, ScrollView } from "react-native";
+
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import pic from "../../media/user.png";
 
-import {
-  List,
-  Spinner,
-  Text,
-  Right,
-  Content,
-  CardItem,
-  Body,
-  Thumbnail,
-} from "native-base";
-import tripStore from "../../stores/tripStore";
-import authStore from "../../stores/authStore";
-import { TextInput, Card } from "react-native-paper";
-import qaStore from "../../stores/qaStore";
-import { View, FlatList, Dimensions, Image, ScrollView } from "react-native";
-const QA = ({ navigation, trip }) => {
+// component
+import Answer from "./Answer";
 
+// store
+import authStore from "../../stores/authStore";
+import qaStore from "../../stores/qaStore";
+
+const QA = ({ navigation, trip }) => {
   const foundQA = qaStore.qa.filter((qa) => qa.tripId === trip.id);
   let counter = 1;
   const [askMe, setAskMe] = useState(false);
@@ -33,11 +30,12 @@ const QA = ({ navigation, trip }) => {
     tripId: trip.id,
   });
 
-  const handleSubmit = async () => {
+  const handleQuestion = async () => {
     await qaStore.createQ(question);
-    setAskMe(reset);
-
+    setQ(reset);
+    setAskMe(false);
   };
+
   const numColumns = 1;
 
   const renderItem = ({ item }) => {
@@ -63,15 +61,18 @@ const QA = ({ navigation, trip }) => {
 
           <Body></Body>
           {authStore.user.id === trip.userId ? (
-            <Right>
-              <Icon
-                onPress={() => setAnswer(!answer)}
-                name="message-text-outline"
-                size="25"
-              />
-            </Right>
+            <>
+              <Right>
+                <Icon
+                  onPress={() => setAnswer(!answer)}
+                  name="message-text-outline"
+                  size="25"
+                />
+              </Right>
+            </>
           ) : null}
         </CardItem>
+        {answer ? <Answer qa={item} /> : null}
         <CardItem>
           {item.a ? <Text style={{ color: "black" }}>{item.a}</Text> : null}
         </CardItem>
@@ -82,7 +83,6 @@ const QA = ({ navigation, trip }) => {
     <ScrollView>
       {authStore.user.id !== trip.userId ? (
         <>
-
           <Text style={{ paddingBottom: 20 }} onPress={() => setAskMe(!askMe)}>
             ask me
             <Icon name="comment-question-outline" size="25" />
@@ -95,15 +95,14 @@ const QA = ({ navigation, trip }) => {
 
                 placeholderTextColor="#A6AEC1"
               />
-              <Text onPress={handleSubmit}>send</Text>
+              <Text onPress={handleQuestion}>send</Text>
             </>
           ) : null}
 
           <Right></Right>
-
         </>
       ) : null}
-      {answer ? <Text> ......</Text> : null}
+
       {foundQA.length !== 0 ? (
         <Content>
           <FlatList

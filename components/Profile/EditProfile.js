@@ -14,18 +14,11 @@ import {
   AuthOther,
 } from "./styles";
 import { Thumbnail } from "native-base";
-import pic from "../../media/user.png";
 import { SmallText, LabelTitle } from "./styles";
 import { View } from "react-native-animatable";
+// image
+import pic from "../../media/user.png";
 import ImagePicker from "react-native-image-crop-picker";
-
-import {
-  TouchableOpacity,
-  ImageBackground,
-  TextInput,
-  StyleSheet,
-  Text,
-} from "react-native";
 
 const EditProfile = ({ navigation }) => {
   const [changeImage, setchangeImage] = useState(false);
@@ -112,3 +105,5 @@ const EditProfile = ({ navigation }) => {
     </AuthContainer>
   );
 };
+
+export default observer(EditProfile);

@@ -2,10 +2,6 @@ import React from "react";
 
 // Styling
 import { TripItemStyled } from "./styles";
-
-import pic from "../../media/user.png";
-
-import authStore from "../../stores/authStore";
 import { observer } from "mobx-react";
 import {
   Card,
@@ -13,27 +9,33 @@ import {
   Thumbnail,
   Left,
   Body,
-  Icon,
   Button,
   Text,
   View,
 } from "native-base";
 import { Image } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
+
+// image
 import Trip from "../../media/Trip.png";
+import pic from "../../media/user.png";
+
+// store
+import authStore from "../../stores/authStore";
 
 const TripItem = ({ trip, navigation }) => {
-
   const user = authStore.users.find((user) => user.id === trip.userId);
 
   return (
-<Card>
+    <Card>
       <CardItem>
         <View style={{ flexDirection: "row" }}>
           <Thumbnail small source={user.image ? { uri: user.image } : pic} />
 
           <TripItemStyled
             style={{ marginTop: 9, marginLeft: 10 }}
-            onPress={() => navigation.navigate("UserProfile", { user: user })}
+            // onPress={() => navigation.navigate("UserProfile", { user: user })}
+            onPress={() => navigation.navigate("Profile", { user: user })}
           >
             {user.username}
           </TripItemStyled>
@@ -65,7 +67,7 @@ const TripItem = ({ trip, navigation }) => {
       <CardItem>
         <Left>
           <Button transparent textStyle={{ color: "#87838B" }}>
-            <Icon name="logo-github" />
+            <Icon name="like2" size="18" />
             <Text>likes</Text>
           </Button>
         </Left>
@@ -75,4 +77,3 @@ const TripItem = ({ trip, navigation }) => {
 };
 
 export default observer(TripItem);
-

@@ -24,11 +24,9 @@ class QAStore {
 
       for (const key in newQ) formData.append(key, newQ[key]);
 
-
       const res = await instance.post(`/trips//${newQ.tripId}/q`, newQ);
       const _Q = res.data;
       this.qa.push(_Q);
-
     } catch (error) {
       console.error("QAStore -> createQ -> error", error);
     }
@@ -43,15 +41,16 @@ class QAStore {
     }
   };
 
-  updateQA = async (updatedQA) => {
+  updateA = async (updatedA) => {
     try {
       const formData = new FormData();
-      for (const key in updatedQA) formData.append(key, updatedQA[key]);
-      await instance.put(`/qa/${updatedQA.id}`, formData);
-      const qa = this.qa.find((qa) => qa.id === updatedQA.id);
-      for (const key in updatedQA) qa[key] = updatedQA[key];
+      for (const key in updatedA) formData.append(key, updatedA[key]);
+      console.log("formData", formData);
+      await instance.put(`/qa/${updatedA.id}`, updatedA);
+      const qa = this.qa.find((qa) => qa.id === updatedA.id);
+      for (const key in updatedA) qa[key] = updatedA[key];
     } catch (error) {
-      console.error("QAStore -> updateQA -> error", error);
+      console.error("QAStore -> updateA -> error", error);
     }
   };
 }

@@ -1,9 +1,12 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { Image, ScrollView } from "react-native";
+
 // Stores
 import tripStore from "../../stores/tripStore";
+import authStore from "../../stores/authStore";
 
+// style
 import {
   Header,
   Card,
@@ -11,33 +14,30 @@ import {
   Thumbnail,
   Text,
   Button,
-  Icon,
   Left,
   Body,
   View,
   Right,
 } from "native-base";
-import authStore from "../../stores/authStore";
+import Icon from "react-native-vector-icons/AntDesign";
 import { TextStyled, TrashIcon } from "./styles";
+
+// image
 import Trip from "../../media/Trip.png";
 import pic from "../../media/user.png";
+
+// component
 import QA from "../QA";
 
 const TripDetail = ({ route, navigation }) => {
-
- const { trip, user } = route.params;`
-
   if (tripStore.loading) return <Spinner color="lightblue" />;
 
-
-
-
+  const { trip, user } = route.params;
 
   const foundTrip = tripStore.trips.find((_trip) => _trip.id === trip.id);
   if (!foundTrip) return navigation.replace("Home");
 
   return (
-
     <ScrollView>
       <Card>
         <CardItem>
@@ -59,7 +59,6 @@ const TripDetail = ({ route, navigation }) => {
         <CardItem>
           <Body style={{ alignItems: "center" }}>
             {trip.image ? (
-
               <Image
                 source={{ uri: trip.image }}
                 style={{
@@ -84,7 +83,7 @@ const TripDetail = ({ route, navigation }) => {
         <CardItem>
           <Left>
             <Button transparent textStyle={{ color: "#87838B" }}>
-              <Icon name="logo-github" />
+              <Icon name="like2" size="18" />
               <Text>likes</Text>
             </Button>
           </Left>

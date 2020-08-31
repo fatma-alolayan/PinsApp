@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 
-
 export const TextStyle = styled.Text`
   color: navy;
   font-size: 18;
@@ -20,5 +19,4 @@ export const TripStyled = styled.Text`
   font-size: 14px;
   margin-top: 10px;
   margin-bottom: -30px;
-
 `;

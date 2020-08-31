@@ -1,33 +1,22 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
+import { observer } from "mobx-react";
 
 import Icon from "react-native-vector-icons/Ionicons";
-import DrawerContent from "../../components/DawerContenent";
-import { View } from "native-base";
+
 // compponent
-import Home from "../Home";
-import Start from "../authentication/Start";
-
-import Signin from "../authentication/Signin";
-import Signup from "../authentication/Signup";
+import DrawerContent from "../../components/DawerContenent";
 import TripList from "../TripList";
-
 import Profile from "../Profile";
-import UserProfile from "../Profile/UserProfile";
 import Search from "../Search";
 import AddTrip from "../AddTrip";
 import TripDetail from "../TripDetail";
 import Intro from "./Intro";
 import EditProfile from "../Profile/EditProfile";
-import MyTrip from "../MyTrip";
 import UpdateTrip from "../UpdateTrip";
 import authStore from "../../stores/authStore";
-import { observer } from "mobx-react";
 
 const HomeStack = createStackNavigator();
 const SearchStack = createStackNavigator();
@@ -132,29 +121,7 @@ const HomeStackScreen = ({ navigation }) => (
         ),
       }}
     />
-    <HomeStack.Screen
-      name="UserProfile"
-      component={UserProfile}
-      options={{
-        headerRight: () => (
-          <Icon
-            style={{ paddingRight: 10 }}
-            name="md-arrow-back"
-            size={25}
-            color="#fff"
-            onPress={() => navigation.goBack()}
-          ></Icon>
-        ),
-        headerLeft: () => (
-          <Icon.Button
-            name="ios-menu"
-            size={25}
-            backgroundColor="lightblue"
-            onPress={() => navigation.openDrawer()}
-          ></Icon.Button>
-        ),
-      }}
-    />
+
     <HomeStack.Screen
       name="Search"
       component={Search}
@@ -211,20 +178,6 @@ const HomeStackScreen = ({ navigation }) => (
     <HomeStack.Screen
       name="EditProfile"
       component={EditProfile}
-      options={{
-        headerLeft: () => (
-          <Icon.Button
-            name="ios-menu"
-            size={25}
-            backgroundColor="lightblue"
-            onPress={() => navigation.openDrawer()}
-          ></Icon.Button>
-        ),
-      }}
-    />
-    <HomeStack.Screen
-      name="MyTrip"
-      component={MyTrip}
       options={{
         headerLeft: () => (
           <Icon.Button
@@ -331,9 +284,6 @@ const RootNavigator = () => {
         <Intro />
       )}
     </>
-
-   
-
   );
 };
 export default observer(RootNavigator);
