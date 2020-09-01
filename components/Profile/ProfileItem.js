@@ -32,6 +32,7 @@ const ProfileItem = ({ navigation, trip, user }) => {
         }}
       >
         {item.image ? (
+          // again, this condition should be within the Image component to avoid repeated code
           <Image
             source={{ uri: item.image }}
             style={{
@@ -59,6 +60,15 @@ const ProfileItem = ({ navigation, trip, user }) => {
       </View>
     );
   };
+
+  /**
+   * This ScrollView should be where you're rendering ProfileItem in index.js
+   * This file's default export component should be the renderItem method renamed to ProfileTripItem
+   * This file should be renamed to ProfileTripItem
+   * 
+   * A question for the standup meeting: Why are you not using TripItem to display the trips in the Profile?
+   *  Why create a brand new component to display it, rather than just reuse the TripItem component?
+   */
 
   return (
     <ScrollView>

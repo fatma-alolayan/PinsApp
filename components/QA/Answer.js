@@ -26,8 +26,10 @@ import { View } from "react-native-animatable";
 import authStore from "../../stores/authStore";
 
 const Answer = ({ navigation, qa, trip }) => {
+  // seriously.... setAnswer
   const [answer, setA] = useState(qa);
 
+  // move this below next to handleQuestions
   const handleAnswer = async () => {
     setAddAnswer(!addAnswer);
     await qaStore.updateA(answer);
@@ -36,14 +38,17 @@ const Answer = ({ navigation, qa, trip }) => {
   const [addAnswer, setAddAnswer] = useState(false);
   const user = authStore.users.find((user) => qa.userId === user.id);
 
+  // setQuestion
+  // Readability counts!
   const [question, setQ] = useState({
-    q: "",
-    a: "",
+    q: "", // question
+    a: "", // answer
     userId: qa.userId,
     tripId: qa.tripId,
   });
-  console.log("qa.userId", qa.userId);
+  console.log("qa.userId", qa.userId); // no console logs in master
 
+  // not being used, remove it.
   const handleQuestion = async () => {
     await qaStore.createQ(question);
     setAskMe(false);
@@ -70,6 +75,7 @@ const Answer = ({ navigation, qa, trip }) => {
       <CardItem style={{ backgroundColor: "#f0efeb", paddingTop: 0 }}>
         <Text style={{ color: "blue" }}>{qa.q}</Text>
 
+        {/* is this body component for anything? */}
         <Body></Body>
         {authStore.user.id === trip.userId ? (
           <>
@@ -79,7 +85,7 @@ const Answer = ({ navigation, qa, trip }) => {
                 name="message-text-outline"
                 size="20"
               />
-              <SmallText>Replay</SmallText>
+              <SmallText>Reply</SmallText>
             </Right>
           </>
         ) : null}
@@ -88,11 +94,12 @@ const Answer = ({ navigation, qa, trip }) => {
         <>
           <View>
             <MultiLineInput
-              onChangeText={(a) => setA({ ...answer, a })}
+              // "a" is not much easier to write than "answer". But "answer" is MUCH easier to understand than "a". Change every reference to this property please.
+              onChangeText={(answer) => setA({ ...answer, answer })}
               placeholder="answer"
               placeholderTextColor="#A6AEC1"
               multiline={true}
-              value={answer.a}
+              value={answer.answer}
             />
 
             <SubmitButton>

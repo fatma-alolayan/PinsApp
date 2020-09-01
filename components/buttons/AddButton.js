@@ -13,6 +13,13 @@ const AddButton = () => {
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
 
+/**
+ * Not sure what's happening here
+ * but remove any code you wont use
+ * fix any code you will use and use it
+ * try not to leave commented code like this in master
+ */
+
   return (
     <>
       {/* <AddButtonStyle> */}

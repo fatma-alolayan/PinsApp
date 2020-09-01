@@ -9,7 +9,7 @@ class TripStore {
     try {
       const res = await instance.get("/trips");
       // REVIEW: Remove the extra spacing
-
+      // do laila's review comments
       this.trips = res.data;
 
       this.trips = this.trips.sort((a, b) =>

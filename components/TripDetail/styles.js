@@ -9,14 +9,13 @@ export const FWrapper = styled.View`
 export const Description = styled.Text`
   text-align: center;
 `;
+
 export const TextStyled = styled.Text`
   color: black;
   font-size: 16px;
-
- 
   margin-bottom: 5px; */
-
 `;
+
 export const TrashIcon = styled(Icon)`
   color: #9d0208;
   font-size: 20px;

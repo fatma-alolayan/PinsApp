@@ -8,22 +8,22 @@ import authStore from "../../stores/authStore";
 
 // style
 import {
-  Header,
+  Header, // unused import
   Card,
   CardItem,
   Thumbnail,
   Text,
-  Button,
+  Button, // unused import
   Left,
   Body,
   View,
   Right,
 } from "native-base";
-import Icon from "react-native-vector-icons/AntDesign";
+import Icon from "react-native-vector-icons/AntDesign"; // unused import
 import { TextStyled, TrashIcon } from "./styles";
 import moment from "moment";
 
-// image
+// images
 import Trip from "../../media/Trip.png";
 import pic from "../../media/user.png";
 

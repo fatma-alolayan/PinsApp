@@ -6,7 +6,7 @@ import { observer } from "mobx-react";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
-// compponent
+// component
 import DrawerContent from "../../components/DawerContenent";
 import TripList from "../TripList";
 import Profile from "../Profile";
@@ -22,8 +22,11 @@ const HomeStack = createStackNavigator();
 const SearchStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator(); // unwrap here so you don't have to write "Tab." so many times below
 
+// move each of these stack screens to their own files
+// thatll organize the code a lot and make it easier to navigate
+// this colossal file is too big.
 const TabScreen = () => (
   <Tab.Navigator
     initialRouteName="Home"

@@ -7,7 +7,7 @@ import Signup from "../authentication/Signup";
 import Start from "../authentication/Start";
 
 const RootStack = createStackNavigator();
-
+// this file should be index.js
 const Intro = ({ navigation }) => (
   <RootStack.Navigator headerMode="none">
     <RootStack.Screen name="Start" component={Start} />

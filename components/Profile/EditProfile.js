@@ -18,10 +18,12 @@ import { SmallText, LabelTitle } from "./styles";
 import { View } from "react-native-animatable";
 // image
 import pic from "../../media/user.png";
-import ImagePicker from "react-native-image-crop-picker";
+import ImagePicker from "react-native-image-crop-picker"; // unused imports
+
+// im not sure how this component is navigated to...
 
 const EditProfile = ({ navigation }) => {
-  const [changeImage, setchangeImage] = useState(false);
+  const [changeImage, setchangeImage] = useState(false); // setChangeImage
   const user = authStore.user;
 
   const [_user, setUser] = useState(user);
@@ -48,7 +50,7 @@ const EditProfile = ({ navigation }) => {
         Change image
       </SmallText>
 
-      {changeImage ? (
+      {changeImage &&
         <View style={{ flexDirection: "row" }}>
           <LabelTitle>Image</LabelTitle>
 
@@ -59,7 +61,7 @@ const EditProfile = ({ navigation }) => {
             value={_user.image}
           />
         </View>
-      ) : null}
+      }
       <View style={{ flexDirection: "row" }}>
         <LabelTitle>Username</LabelTitle>
         <AuthTextInput
@@ -100,7 +102,7 @@ const EditProfile = ({ navigation }) => {
       <AuthButton onPress={handleSubmit}>
         <AuthButtonText>Edit</AuthButtonText>
       </AuthButton>
-      <AuthOther onPress={() => navigation.goBack()}>Cancel</AuthOther>
+      <AuthOther onPress={navigation.goBack/* just wanna show you you can remove the arrow function and parentheses and it's cleaner this way */}>Cancel</AuthOther>
     </AuthContainer>
   );
 };

@@ -15,7 +15,10 @@ import { observer } from "mobx-react";
 import { Button, Thumbnail } from "native-base";
 import pic from "../../media/user.png";
 
+// file name should be renamed to match the spelling of this component. "DrawerContent" not "DawerContenent".
+
 const DrawerContent = ({ navigation }) => {
+  // i assume this file isn't being used, because the below line would crash if it is.
   user = authStore.user;
 
   return (
@@ -27,6 +30,7 @@ const DrawerContent = ({ navigation }) => {
               <View style={styles.userInfoSection}>
                 <View style={{ flexDirection: "row", marginTop: 15 }}>
                   {user.image ? (
+                    // this condition should be inside the Thumbnail component, so you don't have to repeat it.
                     <Thumbnail
                       onPress={() => navigation.navigate("EditProfile", user)}
                       source={{ uri: user.image }}
