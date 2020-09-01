@@ -17,9 +17,7 @@ class AuthStore {
   fetchUsers = async () => {
     try {
       const res = await instance.get("/");
-
       this.users = res.data;
-
       this.loading = false;
     } catch (error) {
       console.error("Userstore -> fetchUsers -> error", error);
@@ -29,7 +27,7 @@ class AuthStore {
   signup = async (userData) => {
     try {
       const res = await instance.post("/signup", userData);
-      this.setUser(res.data.token);
+      this.setUser(res.data.token); // await
     } catch (error) {
       console.log("AuthStore -> signup -> error", error);
     }
@@ -39,7 +37,7 @@ class AuthStore {
     try {
       const res = await instance.post("/signin", userData);
       await this.setUser(res.data.token);
-      console.log("AuthStore -> signin -> res.data.token", res.data.token);
+      console.log("AuthStore -> signin -> res.data.token", res.data.token); // no console logs in master
     } catch (error) {
       console.log("AuthStore -> signin -> error", error);
     }
@@ -56,12 +54,13 @@ class AuthStore {
     if (token) {
       const decodedToken = decode(token);
       if (Date.now() < decodedToken.exp) {
-        this.setUser(token);
+        this.setUser(token); // await
       } else {
         this.signout();
       }
     }
   };
+
   updateUser = async (updatedUser) => {
     try {
       const formData = new FormData();
@@ -69,7 +68,7 @@ class AuthStore {
       await instance.put(`/${updatedUser.id}`, formData);
       const user = this.users.find((user) => user.id === updatedUser.id);
       this.user = updatedUser;
-      console.log("......user", this.user);
+      console.log("......user", this.user); // no console logs
       for (const key in updatedUser) user[key] = updatedUser[key];
 
       // trip.image = URL.createObjectURL(updatedUser.image);

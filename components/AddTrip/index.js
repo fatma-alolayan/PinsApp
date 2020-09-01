@@ -16,15 +16,22 @@ import {
   AuthMultiLineInput,
 } from "./styles";
 // import TextInput from "react-native-textinput-multiline";
-import TextInput from "react-native";
+import TextInput from "react-native"; // remove unused imports
 
 const AddTrip = ({ navigation }) => {
+  // i think you mean "reset"
   const rest = { title: "", image: "", details: "" };
   const [trip, setTrip] = useState(rest);
 
   const handleSubmit = async () => {
     await tripStore.createTrip(trip);
 
+    /**
+     * might be cleaner and nicer to define a method called resetForm()
+     * that when called would reset the form
+     * and here you just call the method
+     * this way you wont even need to define the "rest" object.
+     */
     setTrip(rest);
     if (authStore.user) navigation.goBack();
   };

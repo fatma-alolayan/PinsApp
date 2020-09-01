@@ -24,6 +24,8 @@ const TripList = ({ navigation }) => {
   return (
     <Container>
       <ScrollView>
+        {/* Consider this line below. Isn't it cleaner than the if-statement above? */}
+        {/* {tripList.length ? <List>{tripList}</List> : <TextStyle>No Trips</TextStyle>} */}
         <List>{tripList}</List>
       </ScrollView>
     </Container>

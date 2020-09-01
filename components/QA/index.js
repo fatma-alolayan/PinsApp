@@ -20,15 +20,15 @@ import qaStore from "../../stores/qaStore";
 
 const QA = ({ navigation, trip }) => {
   const foundQA = qaStore.qa.filter((qa) => qa.tripId === trip.id);
-
+  // don't store the .filter() in foundQA. chain the .filter() with .map() and put them in one line.
   const qa = foundQA.map((qa) => (
     <Answer qa={qa} key={qa.id} trip={trip} navigation={navigation} />
   ));
-  let counter = 1;
+  let counter = 1; // not used, remove it
   const [askMe, setAskMe] = useState(false);
-  const [answer, setAnswer] = useState(false);
+  const [answer, setAnswer] = useState(false); // not used remove it
 
-  const reset = { q: "", a: "", userId: authStore.user.id, tripId: trip.id };
+  const reset = { q: "", a: "", userId: authStore.user.id, tripId: trip.id }; // not used remove it
   const [question, setQ] = useState({
     q: "",
     a: "",

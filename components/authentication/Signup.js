@@ -16,6 +16,7 @@ import {
 
 const Signup = ({ navigation }) => {
   const [user, setUser] = useState({
+    // if youre not gonna use these, remove them
     // username: "",
     // firstName: "",
     // lastName: "",

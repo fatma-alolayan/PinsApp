@@ -25,14 +25,15 @@ class QAStore {
       for (const key in newQ) formData.append(key, newQ[key]);
 
       const res = await instance.post(`/trips//${newQ.tripId}/q`, newQ);
-      const _Q = res.data;
+      const _Q = res.data; // no need to store in const, just push res.data directly
       this.qa.push(_Q);
     } catch (error) {
       console.error("QAStore -> createQ -> error", error);
     }
   };
 
-  deleteQA = async (tripId) => {
+  // delete this method
+  deleteQA = async (qaId) => {
     try {
       await instance.delete(`/qa/${qaId}`);
       this.qa = this.qa.filter((qa) => qa.id !== +qaId);
@@ -45,7 +46,7 @@ class QAStore {
     try {
       const formData = new FormData();
       for (const key in updatedA) formData.append(key, updatedA[key]);
-      console.log("formData", formData);
+      console.log("formData", formData); // no console logs
       await instance.put(`/qa/${updatedA.id}`, updatedA);
       const qa = this.qa.find((qa) => qa.id === updatedA.id);
       for (const key in updatedA) qa[key] = updatedA[key];

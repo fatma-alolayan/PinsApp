@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+// delete this file if its empty and unused
+
 // export const DeleteButtonStyled = styled.Text`
 //   color: red;
 // `;
