@@ -8,22 +8,19 @@ class AuthStore {
   users = null;
   loading = true;
 
-  setUser = async (token) => {
-    await AsyncStorage.setItem("myToken", token);
-    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
-    this.user = decode(token);
-  };
-
-  fetchUsers = async () => {
+  fetchUser = async () => {
     try {
       const res = await instance.get("/");
-
       this.users = res.data;
-
       this.loading = false;
     } catch (error) {
       console.error("Userstore -> fetchUsers -> error", error);
     }
+  };
+  setUser = async (token) => {
+    await AsyncStorage.setItem("myToken", token);
+    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    this.user = decode(token);
   };
 
   signup = async (userData) => {
@@ -69,10 +66,6 @@ class AuthStore {
       await instance.put(`/${updatedUser.id}`, formData);
       const user = this.users.find((user) => user.id === updatedUser.id);
       this.user = updatedUser;
-      console.log("......user", this.user);
-      for (const key in updatedUser) user[key] = updatedUser[key];
-
-      // trip.image = URL.createObjectURL(updatedUser.image);
     } catch (error) {
       console.error("AuthStore -> updatedUser -> error", error);
     }
@@ -85,6 +78,6 @@ decorate(AuthStore, {
 });
 const authStore = new AuthStore();
 authStore.checkForToken();
-authStore.fetchUsers();
+authStore.fetchUser();
 
 export default authStore;

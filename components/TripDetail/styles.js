@@ -13,9 +13,7 @@ export const TextStyled = styled.Text`
   color: black;
   font-size: 16px;
 
- 
-  margin-bottom: 5px; */
-
+  margin-bottom: 5px;
 `;
 export const TrashIcon = styled(Icon)`
   color: #9d0208;

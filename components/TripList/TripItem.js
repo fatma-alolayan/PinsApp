@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Styling
 import { TripItemStyled } from "./styles";
@@ -16,7 +16,10 @@ import {
 } from "native-base";
 import { Image } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
+import AddToListIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import moment from "moment";
+
+// component
 
 // image
 import Trip from "../../media/Trip.png";
@@ -26,6 +29,7 @@ import pic from "../../media/user.png";
 import authStore from "../../stores/authStore";
 
 const TripItem = ({ trip, navigation }) => {
+  const [openBottomSheet, setBottomSheet] = useState(true);
   const user = authStore.users.find((user) => user.id === trip.userId);
 
   return (
@@ -36,14 +40,13 @@ const TripItem = ({ trip, navigation }) => {
 
           <TripItemStyled
             style={{ marginTop: 9, marginLeft: 10 }}
-            // onPress={() => navigation.navigate("UserProfile", { user: user })}
             onPress={() => navigation.navigate("Profile", { user: user })}
           >
             {user.username}
           </TripItemStyled>
         </View>
       </CardItem>
-      <CardItem>
+      <CardItem style={{ paddingTop: 0 }}>
         <Body style={{ alignItems: "center" }}>
           <Image
             style={{
@@ -56,27 +59,33 @@ const TripItem = ({ trip, navigation }) => {
         </Body>
       </CardItem>
 
-      <CardItem>
-        <TripItemStyled
-          onPress={() => navigation.navigate("TripDetail", { trip, user })}
-        >
-          {trip.title}
-        </TripItemStyled>
-        <Body></Body>
+      <CardItem style={{ paddingTop: 0 }}>
+        <Left>
+          <Button
+            transparent
+            textStyle={{ color: "#87838B" }}
+            // onPress={setBottomSheet(true)}
+          >
+            <AddToListIcon name="playlist-plus" size="18" />
+          </Button>
+        </Left>
         <Right>
-          <Text note style={{ marginLeft: 15 }}>
-            {moment(trip.createdAt).format("MMM Do YYYY")}
-          </Text>
+          <Text note>{moment(trip.createdAt).format("MMM Do YYYY")}</Text>
         </Right>
       </CardItem>
+      <TripItemStyled
+        onPress={() => navigation.navigate("TripDetail", { trip, user })}
+      >
+        {trip.title}
+      </TripItemStyled>
 
       <CardItem>
-        <Left>
-          {/* <Button transparent textStyle={{ color: "#87838B" }}>
+        {/* <Left> */}
+        {/* <Button transparent textStyle={{ color: "#87838B" }}>
             <Icon name="like2" size="18" />
             <Text>likes</Text>
           </Button> */}
-        </Left>
+        {/* </Left> */}
       </CardItem>
     </Card>
   );

@@ -38,11 +38,9 @@ class TripStore {
       await instance.delete(`/trips/${tripId}`);
       this.trips = this.trips.filter((trip) => trip.id !== +tripId);
     } catch (error) {
-
       console.error("TripStore -> deleteTrip -> error", error);
     }
   };
-
 
   updateTrip = async (updatedTrip) => {
     try {

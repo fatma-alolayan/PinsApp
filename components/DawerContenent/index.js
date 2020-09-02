@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+
+import { observer } from "mobx-react";
+
+// styles
 import {
   useTheme,
   Title,
@@ -10,9 +12,13 @@ import {
   Switch,
 } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import authStore from "../../stores/authStore";
-import { observer } from "mobx-react";
+import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import { View, StyleSheet } from "react-native";
 import { Button, Thumbnail } from "native-base";
+
+// store
+import authStore from "../../stores/authStore";
+// image
 import pic from "../../media/user.png";
 
 const DrawerContent = ({ navigation }) => {
@@ -66,6 +72,17 @@ const DrawerContent = ({ navigation }) => {
                 label="Groups"
                 onPress={() => {
                   // navigation.navigate("Group");
+                }}
+              />
+            </Drawer.Section>
+            <Drawer.Section style={styles.drawerSection}>
+              <DrawerItem
+                icon={() => (
+                  <Icon name="playlist-star" color="grey" size="25" />
+                )}
+                label="My List"
+                onPress={() => {
+                  navigation.navigate("MyList");
                 }}
               />
             </Drawer.Section>
