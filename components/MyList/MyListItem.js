@@ -18,12 +18,21 @@ import {
   Content,
   Body,
 } from "native-base";
-import { FlatList, ScrollView } from "react-native";
+import { FlatList, ScrollView, Alert } from "react-native";
 import { Card } from "react-native-paper";
 
 const MyListItem = ({ navigation, list }) => {
   if (listStore.loading) return <Spinner color="lightblue" />;
 
+  const deleteAlert = () => {
+    Alert.alert("Delete", "Are you sure you want to delete this list?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => listStore.deleteList(list.id) },
+    ]);
+  };
   return (
     <Content>
       <View
@@ -46,11 +55,7 @@ const MyListItem = ({ navigation, list }) => {
             </Text>
             <Body></Body>
             <Right>
-              <TrashIcon
-                name="trash"
-                type="Ionicons"
-                onPress={() => listStore.deleteList(list.id)}
-              />
+              <TrashIcon name="trash" type="Ionicons" onPress={deleteAlert} />
             </Right>
           </CardItem>
         </Card>
