@@ -16,41 +16,41 @@ import Answer from "./Answer";
 
 // store
 import authStore from "../../stores/authStore";
-import qaStore from "../../stores/qaStore";
+import askMeStore from "../../stores/AskMeStore";
 
-const QA = ({ navigation, trip }) => {
-  const foundQA = qaStore.qa.filter((qa) => qa.tripId === trip.id);
+const AskMe = ({ navigation, trip }) => {
+  const foundAskMe = askMeStore.askMe.filter(
+    (askMe) => askMe.tripId === trip.id
+  );
 
-  const qa = foundQA.map((qa) => (
-    <Answer qa={qa} key={qa.id} trip={trip} navigation={navigation} />
+  const askMe = foundAskMe.map((askMe) => (
+    <Answer askMe={askMe} key={askMe.id} trip={trip} navigation={navigation} />
   ));
   let counter = 1;
-  const [askMe, setAskMe] = useState(false);
-  const [answer, setAnswer] = useState(false);
+  const [_askMe, setAskMe] = useState(false);
 
-  const reset = { q: "", a: "", userId: authStore.user.id, tripId: trip.id };
-  const [question, setQ] = useState({
-    q: "",
-    a: "",
+  const [questions, setQuestion] = useState({
+    question: "",
+    answer: "",
     userId: authStore.user.id,
     tripId: trip.id,
   });
 
   const handleQuestion = async () => {
     setAskMe(false);
-    await qaStore.createQ(question);
+    await askMeStore.createQuestion(questions);
   };
 
   return (
     <ScrollView>
       {authStore.user.id !== trip.userId ? (
         <>
-          <Text style={{ paddingBottom: 20 }} onPress={() => setAskMe(!askMe)}>
+          <Text style={{ paddingBottom: 20 }} onPress={() => setAskMe(!_askMe)}>
             ask me
             <Icon name="comment-question-outline" size="25" />
           </Text>
 
-          {askMe ? (
+          {_askMe ? (
             <Card
               style={{
                 borderColor: "lightgray",
@@ -60,7 +60,9 @@ const QA = ({ navigation, trip }) => {
             >
               <CardItem style={{ backgroundColor: "#f0efeb", paddingTop: 0 }}>
                 <TextInputStyle
-                  onChangeText={(q) => setQ({ ...question, q })}
+                  onChangeText={(question) =>
+                    setQuestion({ ...questions, question })
+                  }
                   placeholderTextColor="#A6AEC1"
                   placeholder="Question"
                   multiline={true}
@@ -76,9 +78,9 @@ const QA = ({ navigation, trip }) => {
         </>
       ) : null}
 
-      <View>{qa}</View>
+      <View>{askMe}</View>
     </ScrollView>
   );
 };
 
-export default observer(QA);
+export default observer(AskMe);

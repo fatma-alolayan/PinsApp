@@ -9,6 +9,8 @@ import TripItem from "./TripItem";
 // store
 import tripStore from "../../stores/tripStore";
 import authStore from "../../stores/authStore";
+// style
+import { TextStyle } from "./styles";
 
 const TripList = ({ navigation }) => {
   if (tripStore.loading) return <Spinner color="lightblue" />;

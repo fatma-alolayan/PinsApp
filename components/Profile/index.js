@@ -20,6 +20,7 @@ import pin from "../../media/pin.png";
 // store
 import authStore from "../../stores/authStore";
 import tripStore from "../../stores/tripStore";
+
 // component
 import ProfileItem from "./ProfileItem";
 const numColumns = 2;

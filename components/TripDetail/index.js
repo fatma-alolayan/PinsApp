@@ -28,7 +28,7 @@ import Trip from "../../media/Trip.png";
 import pic from "../../media/user.png";
 
 // component
-import QA from "../QA";
+import AskMe from "../AskMe";
 
 const TripDetail = ({ route, navigation }) => {
   if (tripStore.loading) return <Spinner color="lightblue" />;
@@ -37,7 +37,6 @@ const TripDetail = ({ route, navigation }) => {
 
   const foundTrip = tripStore.trips.find((_trip) => _trip.id === trip.id);
   if (!foundTrip) return navigation.replace("Home");
-
   return (
     <ScrollView>
       <Card>
@@ -121,7 +120,7 @@ const TripDetail = ({ route, navigation }) => {
           </Right>
         </CardItem>
         <CardItem>
-          <QA trip={trip} />
+          <AskMe trip={trip} />
         </CardItem>
       </Card>
     </ScrollView>

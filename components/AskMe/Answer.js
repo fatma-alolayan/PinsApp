@@ -21,34 +21,20 @@ import pic from "../../media/user.png";
 import { MultiLineInput, SubmitButton, SmallText } from "./styles";
 
 // store
-import qaStore from "../../stores/qaStore";
+import askMeStore from "../../stores/AskMeStore";
 import { View } from "react-native-animatable";
 import authStore from "../../stores/authStore";
 
-const Answer = ({ navigation, qa, trip }) => {
-  const [answer, setA] = useState(qa);
+const Answer = ({ navigation, askMe, trip }) => {
+  const [editAnswer, setEditAnswer] = useState(askMe);
+  const [addAnswer, setAddAnswer] = useState(false);
+
+  const user = authStore.users.find((user) => askMe.userId === user.id);
 
   const handleAnswer = async () => {
     setAddAnswer(!addAnswer);
-    await qaStore.updateA(answer);
+    await askMeStore.updateAnswer(editAnswer);
   };
-
-  const [addAnswer, setAddAnswer] = useState(false);
-  const user = authStore.users.find((user) => qa.userId === user.id);
-
-  const [question, setQ] = useState({
-    q: "",
-    a: "",
-    userId: qa.userId,
-    tripId: qa.tripId,
-  });
-  console.log("qa.userId", qa.userId);
-
-  const handleQuestion = async () => {
-    await qaStore.createQ(question);
-    setAskMe(false);
-  };
-
   return (
     <Card
       style={{
@@ -65,14 +51,9 @@ const Answer = ({ navigation, qa, trip }) => {
           />
           <Text style={{ fontSize: 14, paddingLeft: 10 }}>{user.username}</Text>
         </View>
-      </CardItem>
-
-      <CardItem style={{ backgroundColor: "#f0efeb", paddingTop: 0 }}>
-        <Text style={{ color: "blue" }}>{qa.q}</Text>
-
-        <Body></Body>
         {authStore.user.id === trip.userId ? (
           <>
+            <Body></Body>
             <Right>
               <Icon
                 onPress={() => setAddAnswer(!addAnswer)}
@@ -84,15 +65,23 @@ const Answer = ({ navigation, qa, trip }) => {
           </>
         ) : null}
       </CardItem>
+
+      <CardItem style={{ backgroundColor: "#f0efeb", paddingTop: 0 }}>
+        <Text style={{ color: "blue" }}>{askMe.question}</Text>
+
+        <Body></Body>
+      </CardItem>
       {addAnswer ? (
         <>
           <View>
             <MultiLineInput
-              onChangeText={(a) => setA({ ...answer, a })}
+              onChangeText={(answer) =>
+                setEditAnswer({ ...editAnswer, answer })
+              }
               placeholder="answer"
               placeholderTextColor="#A6AEC1"
               multiline={true}
-              value={answer.a}
+              value={editAnswer.answer}
             />
 
             <SubmitButton>
@@ -104,7 +93,9 @@ const Answer = ({ navigation, qa, trip }) => {
         </>
       ) : (
         <CardItem>
-          {qa.a ? <Text style={{ color: "black" }}>{qa.a}</Text> : null}
+          {askMe.answer ? (
+            <Text style={{ color: "black" }}>{askMe.answer}</Text>
+          ) : null}
         </CardItem>
       )}
     </Card>

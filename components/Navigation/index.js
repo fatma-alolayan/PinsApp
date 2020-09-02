@@ -17,6 +17,8 @@ import Intro from "./Intro";
 import EditProfile from "../Profile/EditProfile";
 import UpdateTrip from "../UpdateTrip";
 import authStore from "../../stores/authStore";
+import MyList from "../../components/MyList";
+import AddList from "../../components/MyList/AddList";
 
 const HomeStack = createStackNavigator();
 const SearchStack = createStackNavigator();
@@ -198,6 +200,36 @@ const HomeStackScreen = ({ navigation }) => (
     <HomeStack.Screen
       name="UpdateTrip"
       component={UpdateTrip}
+      options={{
+        title: false,
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={25}
+            backgroundColor="lightblue"
+            onPress={() => navigation.openDrawer()}
+          ></Icon.Button>
+        ),
+      }}
+    />
+    <HomeStack.Screen
+      name="MyList"
+      component={MyList}
+      options={{
+        title: false,
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={25}
+            backgroundColor="lightblue"
+            onPress={() => navigation.openDrawer()}
+          ></Icon.Button>
+        ),
+      }}
+    />
+    <HomeStack.Screen
+      name="AddList"
+      component={AddList}
       options={{
         title: false,
         headerLeft: () => (
