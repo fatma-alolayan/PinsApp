@@ -17,7 +17,7 @@ import {
 } from "./styles";
 import { TextStyle } from "./styles";
 
-const AddList = ({ navigation }) => {
+const AddList = () => {
   const [list, setList] = useState({ title: "" });
 
   const handleSubmit = async () => {

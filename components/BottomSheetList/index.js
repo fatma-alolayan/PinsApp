@@ -4,6 +4,7 @@ import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
 import { Button } from "native-base";
 import { observer } from "mobx-react";
+import AddToListIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const BottomSheetList = (trip) => {
   renderInner = () => (
@@ -34,17 +35,26 @@ const BottomSheetList = (trip) => {
   fall = new Animated.Value(1);
 
   return (
-    <View style={styles.container}>
-      <BottomSheet
-        ref={bs}
-        snapPoints={[330, 0]}
-        renderContent={renderInner}
-        renderHeader={renderHeader}
-        initialSnap={1}
-        callbackNode={fall}
-        enabledGestureInteraction={true}
-      />
-    </View>
+    <>
+      <View style={styles.container}>
+        <BottomSheet
+          ref={bs}
+          snapPoints={[330, 0]}
+          renderContent={renderInner}
+          renderHeader={renderHeader}
+          initialSnap={1}
+          callbackNode={fall}
+          enabledGestureInteraction={true}
+        />
+      </View>
+      <Button
+        transparent
+        textStyle={{ color: "#87838B" }}
+        onPress={() => bs.current.snapTo(0)}
+      >
+        <AddToListIcon name="playlist-plus" color="grey" size="18" />
+      </Button>
+    </>
   );
 };
 

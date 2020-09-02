@@ -81,12 +81,7 @@ const TripDetail = ({ route, navigation }) => {
         </CardItem>
 
         <CardItem>
-          <Left>
-            {/* <Button transparent textStyle={{ color: "#87838B" }}>
-              <Icon name="like2" size="18" />
-              <Text>likes</Text>
-            </Button> */}
-          </Left>
+          <Left></Left>
           <Text note style={{ marginLeft: 15 }}>
             {moment(trip.createdAt).format("MMM Do YYYY")}
           </Text>
