@@ -2,32 +2,28 @@ import React, { useState } from "react";
 import { observer } from "mobx-react";
 
 // style
-import { Text, Right, Content, CardItem, Body, Thumbnail } from "native-base";
+import { Text, CardItem } from "native-base";
 import { Card } from "react-native-paper";
 import { View, ScrollView } from "react-native";
 import { TextInputStyle, SubmitButton } from "./styles";
 
-// image
+// images
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import pic from "../../media/user.png";
 
 // component
 import Answer from "./Answer";
 
 // store
 import authStore from "../../stores/authStore";
-import askMeStore from "../../stores/AskMeStore";
+import askStore from "../../stores/AskStore";
 
-const AskMe = ({ navigation, trip }) => {
-  const foundAskMe = askMeStore.askMe.filter(
-    (askMe) => askMe.tripId === trip.id
-  );
+const Ask = ({ navigation, trip }) => {
+  const foundAsk = askStore.ask.filter((ask) => ask.tripId === trip.id);
 
-  const askMe = foundAskMe.map((askMe) => (
-    <Answer askMe={askMe} key={askMe.id} trip={trip} navigation={navigation} />
+  const ask = foundAsk.map((ask) => (
+    <Answer ask={ask} key={ask.id} trip={trip} navigation={navigation} />
   ));
-  let counter = 1;
-  const [_askMe, setAskMe] = useState(false);
+  const [_ask, setAsk] = useState(false);
 
   const [questions, setQuestion] = useState({
     question: "",
@@ -37,20 +33,20 @@ const AskMe = ({ navigation, trip }) => {
   });
 
   const handleQuestion = async () => {
-    setAskMe(false);
-    await askMeStore.createQuestion(questions);
+    setAsk(false);
+    await askStore.createQuestion(questions);
   };
 
   return (
     <ScrollView>
-      {authStore.user.id !== trip.userId ? (
+      {authStore.user.id !== trip.userId && (
         <>
-          <Text style={{ paddingBottom: 20 }} onPress={() => setAskMe(!_askMe)}>
+          <Text style={{ paddingBottom: 20 }} onPress={() => setAsk(!_ask)}>
             ask me
             <Icon name="comment-question-outline" size="25" />
           </Text>
 
-          {_askMe ? (
+          {_ask && (
             <Card
               style={{
                 borderColor: "lightgray",
@@ -74,13 +70,13 @@ const AskMe = ({ navigation, trip }) => {
                 </Text>
               </SubmitButton>
             </Card>
-          ) : null}
+          )}
         </>
-      ) : null}
+      )}
 
-      <View>{askMe}</View>
+      <View>{ask}</View>
     </ScrollView>
   );
 };
 
-export default observer(AskMe);
+export default observer(Ask);

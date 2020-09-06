@@ -14,14 +14,10 @@ import {
   View,
   Right,
 } from "native-base";
-import { Image, ScrollView } from "react-native";
+import { Image, ScrollView, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import moment from "moment";
 import { SCLAlert, SCLAlertButton } from "react-native-scl-alert";
-
-// component
-import BottomSheetList from "../BottomSheetList";
-import Test from "../Test";
 
 // image
 import Trip from "../../media/Trip.png";
@@ -29,28 +25,67 @@ import pic from "../../media/user.png";
 
 // store
 import authStore from "../../stores/authStore";
-import Navigation from "../Navigation";
-import MyList from "../MyList";
+import listStore from "../../stores/listStore";
+import listTripStore from "../../stores/listTripStore";
 
 const TripItem = ({ trip, navigation }) => {
+  if (listStore.loading) return <Spinner color="lightblue" />;
+  if (listTripStore.loading) return <Spinner color="lightblue" />;
+
   const user = authStore.users.find((user) => user.id === trip.userId);
-  const [openList, setOpenLis] = useState(false);
+  const [openList, setOpenList] = useState(false);
+
   const handleOpen = () => {
-    setOpenLis(true);
+    setOpenList(true);
   };
 
   const handleClose = () => {
-    setOpenLis(false);
+    setOpenList(false);
   };
 
-  const BottomSheet = () => {};
+  const foundList = listStore.list.filter(
+    (list) => list.userId === authStore.user.id && !list.defaultList
+  );
+
+  const addListTrip = (item) => {
+    const foundList = listTripStore.listTrip.find(
+      (list) => list.listId === item.id && list.tripId === trip.id
+    );
+
+    if (!foundList) {
+      const newListTrip = {
+        listId: item.id,
+        tripId: trip.id,
+      };
+      listTripStore.createListTrip(newListTrip);
+      handleClose();
+    } else handleClose();
+  };
+
+  const renderItem = ({ item }) => {
+    return (
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          flex: 1,
+          margin: 1,
+        }}
+      >
+        <Button style={{ backgroundColor: "lightblue", width: 300 }}>
+          <Text style={{ color: "black" }} onPress={() => addListTrip(item)}>
+            {item.title}
+          </Text>
+        </Button>
+      </View>
+    );
+  };
   return (
     <>
       <Card>
         <CardItem>
           <View style={{ flexDirection: "row" }}>
             <Thumbnail small source={user.image ? { uri: user.image } : pic} />
-
             <TripItemStyled
               style={{ marginTop: 9, marginLeft: 10 }}
               onPress={() => navigation.navigate("Profile", { user: user })}
@@ -99,15 +134,29 @@ const TripItem = ({ trip, navigation }) => {
         show={openList}
         onRequestClose={handleClose}
         title="choose your list"
-        // subtitle="choose your list"
+        subtitle="choose your list"
         headerIconComponent={<Icon name="pin" color="white" size="40" />}
       >
-        <ScrollView>
-          <Test />
-          <SCLAlertButton theme="info" onPress={handleClose}>
-            cancel
-          </SCLAlertButton>
+        <ScrollView style={{ height: 95 }}>
+          <FlatList
+            data={foundList}
+            style={{ flex: 1 }}
+            renderItem={renderItem}
+            numColumns={1}
+          />
         </ScrollView>
+
+        <Text
+          onPress={() => {
+            handleClose();
+            navigation.navigate("AddList");
+          }}
+        >
+          + Add List
+        </Text>
+        <SCLAlertButton theme="info" onPress={handleClose}>
+          cancel
+        </SCLAlertButton>
       </SCLAlert>
     </>
   );

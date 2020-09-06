@@ -15,13 +15,7 @@ import {
 } from "./styles";
 
 const Signup = ({ navigation }) => {
-  const [user, setUser] = useState({
-    // username: "",
-    // firstName: "",
-    // lastName: "",
-    // email: "",
-    // password: "",
-  });
+  const [user, setUser] = useState({});
 
   const handleSubmit = async () => {
     await authStore.signup(user);

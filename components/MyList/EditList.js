@@ -17,14 +17,16 @@ import {
 } from "./styles";
 import { TextStyle } from "./styles";
 
-const AddList = ({ navigation }) => {
-  const [list, setList] = useState({ title: "" });
+const EditList = ({ navigation, route }) => {
+  const { _list } = route.params;
+  const [list, setList] = useState(_list);
   const [errorListExist, setErrorListExist] = useState(false);
   const [errorEmptyTitle, setErrorEmptyTitle] = useState(false);
 
   const handleSubmit = async () => {
     setErrorEmptyTitle(false);
     setErrorListExist(false);
+
     const foundList = listStore.list.find(
       (_list) =>
         _list.title === list.title && _list.userId === authStore.user.id
@@ -32,8 +34,8 @@ const AddList = ({ navigation }) => {
 
     if (!foundList) {
       if (list.title !== "") {
-        await listStore.createList(list);
-        navigation.navigate("Home");
+        await listStore.updateList(list);
+        navigation.goBack();
       } else {
         setErrorEmptyTitle(true);
       }
@@ -42,7 +44,7 @@ const AddList = ({ navigation }) => {
 
   return (
     <InputContainer>
-      <Title>New List</Title>
+      <Title>Edit List</Title>
       <TextStyle>Title</TextStyle>
       <TextInputStyle
         onChangeText={(title) => setList({ ...list, title })}
@@ -61,11 +63,11 @@ const AddList = ({ navigation }) => {
         </TextStyle>
       )}
       <InutButton onPress={handleSubmit}>
-        <ButtonText>Add</ButtonText>
+        <ButtonText>Edit</ButtonText>
       </InutButton>
-      <SmallText onPress={() => navigation.navigate("Home")}>Cancel</SmallText>
+      <SmallText onPress={() => navigation.goBack()}>Cancel</SmallText>
     </InputContainer>
   );
 };
 
-export default observer(AddList);
+export default observer(EditList);

@@ -1,6 +1,9 @@
 import { decorate, observable } from "mobx";
 import instance from "./instance";
 
+// Store
+import authStore from "./authStore";
+
 class TripStore {
   trips = [];
   loading = true;
@@ -8,14 +11,10 @@ class TripStore {
   fetchTrips = async () => {
     try {
       const res = await instance.get("/trips");
-      // REVIEW: Remove the extra spacing
-
       this.trips = res.data;
-
       this.trips = this.trips.sort((a, b) =>
         a.updatedAt < b.updatedAt ? 1 : -1
       );
-
       this.loading = false;
     } catch (error) {
       console.error("TripStore -> fetchTrips -> error", error);
@@ -26,7 +25,7 @@ class TripStore {
     try {
       const formData = new FormData();
       for (const key in newTrip) formData.append(key, newTrip[key]);
-      const res = await instance.post("/trips", newTrip);
+      const res = await instance.post(`/${authStore.user.id}/trip`, newTrip);
       this.trips.push(res.data);
     } catch (error) {
       console.error("TripStore -> createTrip -> error", error);
@@ -49,11 +48,11 @@ class TripStore {
       await instance.put(`/trips/${updatedTrip.id}`, formData);
       const trip = this.trips.find((trip) => trip.id === updatedTrip.id);
       for (const key in updatedTrip) trip[key] = updatedTrip[key];
-      // trip.image = URL.createObjectURL(updatedTrip.image);
     } catch (error) {
       console.error("TripStore -> updatedTrip -> error", error);
     }
   };
+  getTripById = (tripId) => this.trips.find((trip) => trip.id === tripId);
 }
 decorate(TripStore, {
   trips: observable,
@@ -61,7 +60,6 @@ decorate(TripStore, {
 });
 
 const tripStore = new TripStore();
-
 tripStore.fetchTrips();
 
 export default tripStore;

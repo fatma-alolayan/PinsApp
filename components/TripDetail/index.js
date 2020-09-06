@@ -1,42 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react";
 import { Image, ScrollView } from "react-native";
 
 // Stores
 import tripStore from "../../stores/tripStore";
 import authStore from "../../stores/authStore";
+import listTripStore from "../../stores/listTripStore";
+import listStore from "../../stores/listStore";
 
 // style
 import {
-  Header,
   Card,
   CardItem,
   Thumbnail,
   Text,
-  Button,
   Left,
   Body,
   View,
   Right,
 } from "native-base";
-import Icon from "react-native-vector-icons/AntDesign";
 import { TextStyled, TrashIcon } from "./styles";
 import moment from "moment";
 
-// image
+// images
 import Trip from "../../media/Trip.png";
 import pic from "../../media/user.png";
 
 // component
-import AskMe from "../AskMe";
+import Ask from "../Ask";
 
 const TripDetail = ({ route, navigation }) => {
   if (tripStore.loading) return <Spinner color="lightblue" />;
-
   const { trip, user } = route.params;
 
-  const foundTrip = tripStore.trips.find((_trip) => _trip.id === trip.id);
-  if (!foundTrip) return navigation.replace("Home");
+  const wantToGo = listStore.list.find(
+    (list) => list.defaultList && list.userId === authStore.user.id
+  );
+  const foundListTrip = listTripStore.listTrip.find(
+    (listTrip) => listTrip.tripId === trip.id && listTrip.listId === wantToGo.id
+  );
+
+  const addToWantToGo = () => {
+    if (!foundListTrip) {
+      const newListTrip = {
+        listId: wantToGo.id,
+        tripId: trip.id,
+      };
+      listTripStore.createListTrip(newListTrip);
+    } else {
+      listTripStore.deleteListTrip(foundListTrip);
+    }
+  };
+
+  const deleteTrip = () => {
+    tripStore.deleteTrip(trip.id);
+    navigation.navigate("Profile");
+  };
   return (
     <ScrollView>
       <Card>
@@ -47,7 +66,6 @@ const TripDetail = ({ route, navigation }) => {
             ) : (
               <Thumbnail small source={pic} />
             )}
-
             <TextStyled
               style={{ marginTop: 9, marginLeft: 10 }}
               onPress={() => navigation.navigate("Profile", { user: user })}
@@ -86,8 +104,20 @@ const TripDetail = ({ route, navigation }) => {
             {moment(trip.createdAt).format("MMM Do YYYY")}
           </Text>
         </CardItem>
+
         <CardItem>
-          <TextStyled>{trip.title}</TextStyled>
+          <Left>
+            <TextStyled>{trip.title}</TextStyled>
+          </Left>
+          {user.id !== authStore.user.id && (
+            <Text
+              onPress={addToWantToGo}
+              note
+              style={{ color: "grey", fontWeight: "bold" }}
+            >
+              {foundListTrip ? "Remove From List " : "Want To Go"}
+            </Text>
+          )}
         </CardItem>
         <CardItem>
           <TextStyled>{trip.details}</TextStyled>
@@ -105,17 +135,13 @@ const TripDetail = ({ route, navigation }) => {
                 >
                   Edit
                 </Text>
-                <TrashIcon
-                  name="trash"
-                  type="Ionicons"
-                  onPress={() => tripStore.deleteTrip(trip.id)}
-                />
+                <TrashIcon name="trash" type="Ionicons" onPress={deleteTrip} />
               </View>
             ) : null}
           </Right>
         </CardItem>
         <CardItem>
-          <AskMe trip={trip} />
+          <Ask trip={trip} />
         </CardItem>
       </Card>
     </ScrollView>
