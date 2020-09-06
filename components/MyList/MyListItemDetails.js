@@ -48,6 +48,7 @@ const MyListItemDetails = ({ navigation, route }) => {
   };
   const renderItem = ({ item }) => {
     return (
+      // REVIEW: move inline styling to styles.js
       <View
         style={{
           alignItems: "center",

@@ -57,6 +57,7 @@ const TripDetail = ({ route, navigation }) => {
     navigation.navigate("Profile");
   };
   return (
+    // REVIEW: move inline styling to styles.js
     <ScrollView>
       <Card>
         <CardItem>
