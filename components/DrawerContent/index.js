@@ -29,6 +29,8 @@ const DrawerContent = ({ navigation }) => {
   ));
 
   return (
+    // REVIEW: You don't need the fragment. Remove it.
+    // REVIEW: Move the inline styling and the stylesheet to a `styles` file
     <>
       <View style={{ flex: 1 }}>
         <DrawerContentScrollView>

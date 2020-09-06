@@ -23,6 +23,7 @@ const MyListItem = ({ navigation, list }) => {
   };
 
   return (
+    // REVIEW: move inline styling to styles.js
     <View
       style={{
         flexDirection: "row",

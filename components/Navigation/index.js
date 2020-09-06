@@ -8,6 +8,7 @@ import Start from "../authentication/Start";
 
 const RootStack = createStackNavigator();
 
+// REVIEW: You don't need to pass `navigation`
 const Navigation = ({ navigation }) => (
   <RootStack.Navigator headerMode="none">
     <RootStack.Screen name="Start" component={Start} />
