@@ -1,25 +1,13 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-// component
-
 // store
 import listStore from "../../stores/listStore";
-import authStore from "../../stores/authStore";
 
 // style
-import { TextStyle, TrashIcon } from "./styles";
-import {
-  View,
-  Text,
-  Right,
-  Spinner,
-  CardItem,
-  Content,
-  Body,
-} from "native-base";
-import { FlatList, ScrollView, Alert } from "react-native";
-import { Card } from "react-native-paper";
+import { TrashIcon, EditIcon } from "./styles";
+import { View, Text, Right, Spinner, Left } from "native-base";
+import { Alert } from "react-native";
 
 const MyListItem = ({ navigation, list }) => {
   if (listStore.loading) return <Spinner color="lightblue" />;
@@ -33,34 +21,42 @@ const MyListItem = ({ navigation, list }) => {
       { text: "OK", onPress: () => listStore.deleteList(list.id) },
     ]);
   };
+
   return (
-    <Content>
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          flex: 1,
-          margin: 1,
-        }}
-      >
-        <Card style={{ width: 350, height: 60, margin: 5 }}>
-          <CardItem>
-            <Text
-              // onPress={() =>
-              //   navigation.navigate("TripDetail", { trip: item, user })
-              // }
-              style={{ color: "black", padding: 10 }}
-            >
-              {list.title}
-            </Text>
-            <Body></Body>
-            <Right>
-              <TrashIcon name="trash" type="Ionicons" onPress={deleteAlert} />
-            </Right>
-          </CardItem>
-        </Card>
-      </View>
-    </Content>
+    <View
+      style={{
+        flexDirection: "row",
+        height: 40,
+        paddingLeft: 50,
+        borderBottomWidth: 0.3,
+        borderColor: "#e9ecef",
+      }}
+    >
+      <Left>
+        <Text
+          onPress={() =>
+            navigation.navigate("MyListItemDetails", { list: list })
+          }
+          style={{
+            color: "#3d5a80",
+            fontSize: 14,
+          }}
+        >
+          {list.title}
+        </Text>
+      </Left>
+
+      {!list.defaultList && (
+        <>
+          <EditIcon
+            name="edit"
+            type="AntDesign"
+            onPress={() => navigation.navigate("EditList", { _list: list })}
+          />
+          <TrashIcon name="trash" type="Ionicons" onPress={deleteAlert} />
+        </>
+      )}
+    </View>
   );
 };
 

@@ -1,28 +1,32 @@
 import React, { useState } from "react";
-
 import { observer } from "mobx-react";
 
 // styles
-import {
-  useTheme,
-  Title,
-  Drawer,
-  Text,
-  TouchableRipple,
-  Switch,
-} from "react-native-paper";
+import { Title, Drawer } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { View, StyleSheet } from "react-native";
-import { Button, Thumbnail } from "native-base";
+import { View, StyleSheet, ScrollView } from "react-native";
+import { Thumbnail } from "native-base";
 
 // store
 import authStore from "../../stores/authStore";
+import listStore from "../../stores/listStore";
+import MyListItem from "../MyList/MyListItem";
+
 // image
 import pic from "../../media/user.png";
 
 const DrawerContent = ({ navigation }) => {
   user = authStore.user;
+
+  if (listStore.loading) return <Spinner color="lightblue" />;
+
+  const foundList = listStore.list.filter(
+    (list) => list.userId === authStore.user.id
+  );
+  const myList = foundList.map((list) => (
+    <MyListItem list={list} key={list.id} navigation={navigation} />
+  ));
 
   return (
     <>
@@ -32,17 +36,14 @@ const DrawerContent = ({ navigation }) => {
             <Drawer.Section style={styles.drawerSection}>
               <View style={styles.userInfoSection}>
                 <View style={{ flexDirection: "row", marginTop: 15 }}>
-                  {user.image ? (
-                    <Thumbnail
-                      onPress={() => navigation.navigate("EditProfile", user)}
-                      source={{ uri: user.image }}
-                    />
-                  ) : (
-                    <Thumbnail source={pic} />
-                  )}
+                  <Thumbnail
+                    onPress={() => navigation.navigate("EditProfile", user)}
+                    source={user.image ? { uri: user.image } : pic}
+                  />
 
                   <View style={{ flexDirection: "column", marginLeft: 15 }}>
                     <Title style={styles.title}>{user.username}</Title>
+                    <Title style={styles.bio}>{user.bio}</Title>
                   </View>
                 </View>
               </View>
@@ -63,26 +64,23 @@ const DrawerContent = ({ navigation }) => {
             <Drawer.Section style={styles.drawerSection}>
               <DrawerItem
                 icon={() => (
-                  <Icon
-                    name="account-multiple-outline"
-                    color="grey"
-                    size="25"
-                  />
-                )}
-                label="Groups"
-                onPress={() => {
-                  // navigation.navigate("Group");
-                }}
-              />
-            </Drawer.Section>
-            <Drawer.Section style={styles.drawerSection}>
-              <DrawerItem
-                icon={() => (
                   <Icon name="playlist-star" color="grey" size="25" />
                 )}
                 label="My List"
+              />
+              <ScrollView
+                style={{
+                  height: 200,
+                  borderWidth: 0.3,
+                  borderColor: "grey",
+                }}
+              >
+                {myList}
+              </ScrollView>
+              <DrawerItem
+                label="+Add List"
                 onPress={() => {
-                  navigation.navigate("MyList");
+                  navigation.navigate("AddList");
                 }}
               />
             </Drawer.Section>
@@ -114,11 +112,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 10,
     fontWeight: "bold",
-    color: "blue",
+    color: "#22577a",
   },
 
   row: {
-    marginTop: 20,
+    marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
   },
 
   drawerSection: {
-    marginTop: 15,
+    marginTop: 5,
   },
   bottomDrawerSection: {
     marginBottom: 15,
@@ -147,5 +145,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontWeight: "bold",
     color: "blue",
+  },
+  bio: {
+    fontSize: 14,
+    color: "#6c757d",
   },
 });

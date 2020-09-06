@@ -9,10 +9,6 @@ export const TextStyle = styled.Text`
 export const TripItemStyled = styled.Text`
   color: black;
   font-size: 16px;
-
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
-  /* padding-left: 20px; */
 `;
 export const TripStyled = styled.Text`
   color: grey;

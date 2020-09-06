@@ -11,14 +11,11 @@ import {
   ScrollView,
 } from "react-native";
 
-// component
-
-// image
+// images
 import Trip from "../../media/Trip.png";
 
 const ProfileItem = ({ navigation, trip, user }) => {
   const numColumns = 2;
-
   const renderItem = ({ item }) => {
     return (
       <View
@@ -31,23 +28,13 @@ const ProfileItem = ({ navigation, trip, user }) => {
           height: Dimensions.get("window").width / numColumns,
         }}
       >
-        {item.image ? (
-          <Image
-            source={{ uri: item.image }}
-            style={{
-              height: 100,
-              width: 180,
-            }}
-          />
-        ) : (
-          <Image
-            source={Trip}
-            style={{
-              height: 100,
-              width: 180,
-            }}
-          />
-        )}
+        <Image
+          style={{
+            height: 100,
+            width: 180,
+          }}
+          source={item.image ? { uri: item.image } : Trip}
+        />
         <Text
           onPress={() =>
             navigation.navigate("TripDetail", { trip: item, user })

@@ -12,11 +12,13 @@ import {
   AuthButton,
   AuthButtonText,
   AuthOther,
+  EditContainer,
 } from "./styles";
 import { Thumbnail } from "native-base";
 import { SmallText, LabelTitle } from "./styles";
 import { View } from "react-native-animatable";
-// image
+
+// images
 import pic from "../../media/user.png";
 import ImagePicker from "react-native-image-crop-picker";
 
@@ -33,75 +35,88 @@ const EditProfile = ({ navigation }) => {
   };
 
   return (
-    <AuthContainer>
-      <AuthTitle>Edit User</AuthTitle>
+    <>
+      <AuthContainer>
+        <AuthTitle>Edit User</AuthTitle>
+        {user.image ? (
+          <Thumbnail large source={{ uri: user.image }} />
+        ) : (
+          <Thumbnail source={pic} />
+        )}
+        <SmallText
+          onPress={() => setchangeImage(!changeImage)}
+          style={{ paddingBottom: 20 }}
+        >
+          Change image
+        </SmallText>
+      </AuthContainer>
+      <EditContainer>
+        {changeImage && (
+          <View style={{ flexDirection: "row" }}>
+            <LabelTitle>Image</LabelTitle>
 
-      {user.image ? (
-        <Thumbnail large source={{ uri: user.image }} />
-      ) : (
-        <Thumbnail source={pic} />
-      )}
-      <SmallText
-        onPress={() => setchangeImage(!changeImage)}
-        style={{ paddingBottom: 20 }}
-      >
-        Change image
-      </SmallText>
+            <AuthTextInput
+              onChangeText={(image) => setUser({ ..._user, image })}
+              placeholder="image"
+              placeholderTextColor="#A6AEC1"
+              value={_user.image}
+            />
+          </View>
+        )}
 
-      {changeImage ? (
         <View style={{ flexDirection: "row" }}>
-          <LabelTitle>Image</LabelTitle>
-
+          <LabelTitle>Username</LabelTitle>
           <AuthTextInput
-            onChangeText={(image) => setUser({ ..._user, image })}
-            placeholder="image"
+            onChangeText={(username) => setUser({ ..._user, username })}
+            placeholder="username"
             placeholderTextColor="#A6AEC1"
-            value={_user.image}
+            value={_user.username}
           />
         </View>
-      ) : null}
-      <View style={{ flexDirection: "row" }}>
-        <LabelTitle>Username</LabelTitle>
-        <AuthTextInput
-          onChangeText={(username) => setUser({ ..._user, username })}
-          placeholder="username"
-          placeholderTextColor="#A6AEC1"
-          value={_user.username}
-        />
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <LabelTitle>First Name</LabelTitle>
-        <AuthTextInput
-          onChangeText={(firstName) => setUser({ ..._user, firstName })}
-          placeholder="firstName"
-          placeholderTextColor="#A6AEC1"
-          value={_user.firstName}
-        />
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <LabelTitle>Last Name</LabelTitle>
-        <AuthTextInput
-          onChangeText={(lastName) => setUser({ ..._user, lastName })}
-          placeholder="lastName"
-          placeholderTextColor="#A6AEC1"
-          value={_user.lastName}
-        />
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <LabelTitle> Email </LabelTitle>
-        <AuthTextInput
-          onChangeText={(email) => setUser({ ..._user, email })}
-          placeholder="email"
-          placeholderTextColor="#A6AEC1"
-          value={_user.email}
-        />
-      </View>
-
-      <AuthButton onPress={handleSubmit}>
-        <AuthButtonText>Edit</AuthButtonText>
-      </AuthButton>
-      <AuthOther onPress={() => navigation.goBack()}>Cancel</AuthOther>
-    </AuthContainer>
+        <View style={{ flexDirection: "row" }}>
+          <LabelTitle>First Name</LabelTitle>
+          <AuthTextInput
+            onChangeText={(firstName) => setUser({ ..._user, firstName })}
+            placeholder="firstName"
+            placeholderTextColor="#A6AEC1"
+            value={_user.firstName}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <LabelTitle>Bio</LabelTitle>
+          <AuthTextInput
+            onChangeText={(bio) => setUser({ ..._user, bio })}
+            placeholder="bio"
+            placeholderTextColor="#A6AEC1"
+            value={_user.bio}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <LabelTitle>Last Name</LabelTitle>
+          <AuthTextInput
+            onChangeText={(lastName) => setUser({ ..._user, lastName })}
+            placeholder="lastName"
+            placeholderTextColor="#A6AEC1"
+            value={_user.lastName}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <LabelTitle>Email </LabelTitle>
+          <AuthTextInput
+            onChangeText={(email) => setUser({ ..._user, email })}
+            placeholder="email"
+            placeholderTextColor="#A6AEC1"
+            value={_user.email}
+          />
+        </View>
+      </EditContainer>
+      <AuthContainer>
+        <AuthButton onPress={handleSubmit}>
+          <AuthButtonText>Edit</AuthButtonText>
+        </AuthButton>
+        <AuthOther onPress={navigation.goBack}>Cancel</AuthOther>
+      </AuthContainer>
+    </>
   );
 };
 

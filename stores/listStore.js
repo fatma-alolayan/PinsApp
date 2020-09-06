@@ -1,5 +1,7 @@
 import { decorate, observable } from "mobx";
 import instance from "./instance";
+
+// Store
 import authStore from "./authStore";
 
 class ListStore {
@@ -9,14 +11,13 @@ class ListStore {
   fetchList = async () => {
     try {
       const res = await instance.get("/list");
-      // REVIEW: Remove the extra spacing
-
       this.list = res.data;
-
       this.list = this.list.sort((a, b) =>
         a.updatedAt < b.updatedAt ? 1 : -1
       );
-
+      this.list = this.list.sort((a, b) =>
+        a.defaultList < b.defaultList ? 1 : -1
+      );
       this.loading = false;
     } catch (error) {
       console.error("ListStore -> fetchlist -> error", error);

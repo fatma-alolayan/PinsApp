@@ -7,7 +7,6 @@ export const TextStyle = styled.Text`
   text-align: center;
   padding-top: 100px;
 `;
-
 export const AuthContainer = styled.View`
   flex: 1;
   align-self: stretch;
@@ -17,39 +16,39 @@ export const AuthContainer = styled.View`
   padding-right: 60px;
   padding-left: 60px;
 `;
-
+export const EditContainer = styled.View`
+  flex: 1;
+  background-color: white;
+  padding-right: 60px;
+  padding-left: 40px;
+`;
 export const AuthTitle = styled.Text`
   color: black;
   font-size: 18px;
   margin-bottom: 20px;
   border-bottom-color: black;
 `;
-
 export const AuthTextInput = styled.TextInput`
   align-self: stretch;
   text-align: left;
   height: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   color: black;
-  border-bottom-color: black;
+  border-bottom-color: lightgrey;
   border-bottom-width: 1px;
-  width: 200px;
+  width: 170px;
 `;
-
 export const AuthButton = styled.TouchableOpacity`
-  align-self: stretch;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   background-color: lightblue;
-  margin-top: 20px;
+  width: 200;
 `;
-
 export const AuthButtonText = styled.Text`
   color: #fcfdff;
   font-weight: bold;
   font-size: 18px;
 `;
-
 export const AuthOther = styled.Text`
   color: black;
   margin-top: 15px;
@@ -57,7 +56,6 @@ export const AuthOther = styled.Text`
 export const TrashIcon = styled(Icon)`
   color: red;
 `;
-
 export const SmallText = styled.Text`
   font-size: 10;
   font-weight: bold;
@@ -67,7 +65,8 @@ export const SmallText = styled.Text`
 `;
 export const LabelTitle = styled.Text`
   color: black;
-  font-size: 16px;
+  font-size: 14px;
   border-bottom-color: black;
-  padding-right: 20;
+  /* padding-left: 20; */
+  width: 100;
 `;

@@ -18,15 +18,17 @@ import {
 
 const UpdateTrip = ({ navigation, route }) => {
   const { trip } = route.params;
+  const [error, setEroror] = useState(false);
 
   const reset = { title: "", image: "", details: "" };
   const [_trip, setTrip] = useState(trip ?? reset);
 
   const handleSubmit = async () => {
-    await tripStore.updateTrip(_trip);
-    setTrip(reset);
-
-    if (authStore.user) navigation.goBack();
+    if (_trip.title !== "") {
+      await tripStore.updateTrip(_trip);
+      setTrip(reset);
+      if (authStore.user) navigation.navigate("Profile");
+    } else setEroror(true);
   };
 
   return (
@@ -52,7 +54,9 @@ const UpdateTrip = ({ navigation, route }) => {
         value={_trip.details}
         multiline={true}
       />
-
+      {error && (
+        <AuthOther style={{ color: "red" }}> Title should be entered</AuthOther>
+      )}
       <AuthButton onPress={handleSubmit}>
         <AuthButtonText>Update</AuthButtonText>
       </AuthButton>

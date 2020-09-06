@@ -2,38 +2,27 @@ import React, { useState } from "react";
 import { observer } from "mobx-react";
 
 // styls
-import {
-  Text,
-  Right,
-  Left,
-  Body,
-  Card,
-  CardItem,
-  Thumbnail,
-} from "native-base";
-import { Button } from "react-native-paper";
+import { Text, Right, Body, Card, CardItem, Thumbnail } from "native-base";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { MultiLineInput, SubmitButton, SmallText } from "./styles";
 
 // image
 import pic from "../../media/user.png";
 
-// style
-import { MultiLineInput, SubmitButton, SmallText } from "./styles";
-
 // store
-import askMeStore from "../../stores/AskMeStore";
+import askStore from "../../stores/AskStore";
 import { View } from "react-native-animatable";
 import authStore from "../../stores/authStore";
 
-const Answer = ({ navigation, askMe, trip }) => {
-  const [editAnswer, setEditAnswer] = useState(askMe);
+const Answer = ({ navigation, ask, trip }) => {
+  const [editAnswer, setEditAnswer] = useState(ask);
   const [addAnswer, setAddAnswer] = useState(false);
 
-  const user = authStore.users.find((user) => askMe.userId === user.id);
+  const user = authStore.users.find((user) => ask.userId === user.id);
 
   const handleAnswer = async () => {
     setAddAnswer(!addAnswer);
-    await askMeStore.updateAnswer(editAnswer);
+    await askStore.updateAnswer(editAnswer);
   };
   return (
     <Card
@@ -51,7 +40,7 @@ const Answer = ({ navigation, askMe, trip }) => {
           />
           <Text style={{ fontSize: 14, paddingLeft: 10 }}>{user.username}</Text>
         </View>
-        {authStore.user.id === trip.userId ? (
+        {authStore.user.id === trip.userId && (
           <>
             <Body></Body>
             <Right>
@@ -60,14 +49,14 @@ const Answer = ({ navigation, askMe, trip }) => {
                 name="message-text-outline"
                 size="20"
               />
-              <SmallText>Replay</SmallText>
+              <SmallText>Reply</SmallText>
             </Right>
           </>
-        ) : null}
+        )}
       </CardItem>
 
       <CardItem style={{ backgroundColor: "#f0efeb", paddingTop: 0 }}>
-        <Text style={{ color: "blue" }}>{askMe.question}</Text>
+        <Text style={{ color: "blue" }}>{ask.question}</Text>
 
         <Body></Body>
       </CardItem>
@@ -93,9 +82,7 @@ const Answer = ({ navigation, askMe, trip }) => {
         </>
       ) : (
         <CardItem>
-          {askMe.answer ? (
-            <Text style={{ color: "black" }}>{askMe.answer}</Text>
-          ) : null}
+          <Text style={{ color: "black" }}>{ask.answer}</Text>
         </CardItem>
       )}
     </Card>

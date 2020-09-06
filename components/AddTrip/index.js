@@ -15,18 +15,20 @@ import {
   AuthOther,
   AuthMultiLineInput,
 } from "./styles";
-// import TextInput from "react-native-textinput-multiline";
-import TextInput from "react-native";
 
 const AddTrip = ({ navigation }) => {
-  const rest = { title: "", image: "", details: "" };
-  const [trip, setTrip] = useState(rest);
+  const reset = { title: "", image: "", details: "" };
+
+  const [trip, setTrip] = useState(reset);
+  const [error, setEroror] = useState(false);
 
   const handleSubmit = async () => {
-    await tripStore.createTrip(trip);
-
-    setTrip(rest);
-    if (authStore.user) navigation.goBack();
+    if (trip.title !== "") {
+      await tripStore.createTrip(trip);
+      setTrip(reset);
+      setEroror(false);
+      navigation.navigate("Profile");
+    } else setEroror(true);
   };
 
   return (
@@ -53,7 +55,9 @@ const AddTrip = ({ navigation }) => {
         value={trip.details}
         multiline={true}
       />
-
+      {error && (
+        <AuthOther style={{ color: "red" }}> Title should be entered</AuthOther>
+      )}
       <AuthButton onPress={handleSubmit}>
         <AuthButtonText>Add</AuthButtonText>
       </AuthButton>

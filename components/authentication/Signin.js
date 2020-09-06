@@ -20,11 +20,6 @@ import { Text } from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Signin = ({ navigation }) => {
-  const reset = {
-    username: "",
-    password: "",
-    isValidUser: true,
-  };
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -32,7 +27,7 @@ const Signin = ({ navigation }) => {
   });
   const [showPass, setShowPass] = useState(false);
 
-  const updateShowPass = () => {
+  const toggleShowPass = () => {
     setShowPass(!showPass);
   };
   const handleSubmit = async () => {
@@ -42,7 +37,6 @@ const Signin = ({ navigation }) => {
       <RootNavigator />;
     } else {
       setUser({ ...(user.isValidUser = false) });
-      // setUser(reset);
     }
   };
 
@@ -63,12 +57,8 @@ const Signin = ({ navigation }) => {
         secureTextEntry={showPass ? false : true}
         value={user.password}
       />
-      <TouchableOpacity onPress={updateShowPass}>
-        {!showPass ? (
-          <Feather name="eye-off" color="grey" size={15} />
-        ) : (
-          <Feather name="eye" color="grey" size={15} />
-        )}
+      <TouchableOpacity onPress={toggleShowPass}>
+        <Feather name={showPass ? "eye" : "eye-off"} color="grey" size={15} />
       </TouchableOpacity>
       {user.isValidUser ? (
         <Text style={{ color: "green" }}> forget password </Text>
